@@ -4,10 +4,21 @@ class UsersController < ApplicationController
   end
   
   def create
-    @user = User.new(params[:user])
+    @user = User.new(user_params)
     if @user.save
       redirect_to root_url, :notice => "Signed up!"
     else
       render "new"
     end
+  end
+  
+  def show
+    @user = User.find_by_id(session[:user_id])
+  end
+  
+  private 
+  
+  def user_params
+    params.require(:user).permit(:username, :password, :password_confirmation, :email)
+  end
 end
