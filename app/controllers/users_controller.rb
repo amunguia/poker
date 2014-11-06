@@ -6,7 +6,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      redirect_to root_url, :notice => "Signed up!"
+      session[:user_id] = @user.id
+      redirect_to logged_in_path, :notice => "Signed up!"
     else
       render "new"
     end
