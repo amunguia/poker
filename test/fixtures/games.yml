@@ -1,0 +1,43 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  current_player: MyString
+  current_bal: 1
+  p1_bal: 1
+  p2_bal: 1
+  p3_bal: 1
+  p4_bal: 1
+  p1_max: 1
+  p2_max: 1
+  p3_max: 1
+  p4_max: 1
+  p1_cards: MyString
+  p2_cards: MyString
+  p3_cards: MyString
+  p4_cards: MyString
+  card1: MyString
+  card2: MyString
+  card3: MyString
+  card4: MyString
+  card5: MyString
+
+two:
+  current_player: MyString
+  current_bal: 1
+  p1_bal: 1
+  p2_bal: 1
+  p3_bal: 1
+  p4_bal: 1
+  p1_max: 1
+  p2_max: 1
+  p3_max: 1
+  p4_max: 1
+  p1_cards: MyString
+  p2_cards: MyString
+  p3_cards: MyString
+  p4_cards: MyString
+  card1: MyString
+  card2: MyString
+  card3: MyString
+  card4: MyString
+  card5: MyString

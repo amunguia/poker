@@ -2,6 +2,10 @@ class User < ActiveRecord::Base
   STARTING_BALANCE = 10000
   
   attr_accessor :password, :password_confirmation
+  belongs_to :room
+  belongs_to :table
+  belongs_to :game
+
   before_save :encrypt_password
   before_save :initial_balance
   

@@ -11,7 +11,46 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141106001622) do
+ActiveRecord::Schema.define(version: 20141115213513) do
+
+  create_table "games", force: true do |t|
+    t.string   "player_order"
+    t.integer  "current_bal"
+    t.integer  "p1_bal"
+    t.integer  "p2_bal"
+    t.integer  "p3_bal"
+    t.integer  "p4_bal"
+    t.integer  "p1_max"
+    t.integer  "p2_max"
+    t.integer  "p3_max"
+    t.integer  "p4_max"
+    t.string   "p1_cards"
+    t.string   "p2_cards"
+    t.string   "p3_cards"
+    t.string   "p4_cards"
+    t.string   "card1"
+    t.string   "card2"
+    t.string   "card3"
+    t.string   "card4"
+    t.string   "card5"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "table_id"
+  end
+
+  create_table "rooms", force: true do |t|
+    t.string   "name"
+    t.integer  "minimum_bet"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tables", force: true do |t|
+    t.integer  "number"
+    t.integer  "room_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "username"
@@ -21,6 +60,10 @@ ActiveRecord::Schema.define(version: 20141106001622) do
     t.integer  "balance"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "room_id"
+    t.integer  "table_id"
+    t.integer  "game_id"
+    t.integer  "user_level"
   end
 
 end
