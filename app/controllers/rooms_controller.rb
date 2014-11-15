@@ -15,7 +15,10 @@ class RoomsController < ApplicationController
   # GET /rooms/1
   # GET /rooms/1.json
   def show
-    if current_user.user_level != 0
+    if current_user
+      @tables = Table.find_all_by_room_id(params[:id])
+      puts @tables
+    else
       render :file => "public/403.html", :status => :unauthorized
       return
     end
