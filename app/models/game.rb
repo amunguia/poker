@@ -1,12 +1,59 @@
 require 'json'
 
 class Game < ActiveRecord::Base
+ 
+  attr_accessor :id
   
   belongs_to :table
   has_many :users
 
   def initialize
-    #Set cards
+    super()
+    deck = Deck.new_deck
+    self.card1 = deck[0]
+    self.card2 = deck[1]
+    self.card3 = deck[2]
+    self.stream = deck.slice(0,5).join ","
+    self.p1_cards = deck.slice(5,2).join ","
+    self.p2_cards = deck.slice(7,2).join ","
+    self.p3_cards = deck.slice(9,2).join ","
+    self.p4_cards = deck.slice(11,2).join ","
+  end
+
+  def card_for_player(id)
+    if p1 == id
+      self.p1_cards.split ","
+    elsif p2 == id
+      self.p2_cards.split ","
+    elsif p3 == id
+      self.p3_cards.split ","
+    elsif p4 == id
+      self.p4_cards.split ","
+    else
+      [] 
+    end
+  end
+
+  def reveal_fourth
+    self.card4 = self.stream.split(",")[3]
+    self.save
+  end
+
+  def reveal_fifth
+    self.card5 = self.stream.split(",")[4]
+    self.save
+  end
+
+  def current_player_str
+    if self.current_player == self.p1
+      "p1"
+    elsif self.current_player == self.p2
+      "p2"
+    elsif self.current_player == self.p3
+      "p3"
+    elsif self.current_player == self.p4
+      "p4"
+    end
   end
 
   def to_json
@@ -48,27 +95,20 @@ class Game < ActiveRecord::Base
       state[:p4_bal] = "--"
     end
  
-    state[:pot_bal] = self.current_bal
-    state[:turn] = do
-      if self.current_player == self.p1
-        "p1"
-      elsif self.current_player == self.p2
-        "p2"
-      elsif self.current_player == self.p3
-        "p3"
-      else
-        "p4"
-      end 
+    state[:pot_bal] = current_player_str
+    state[:card1] = Deck.card_for_string(self.card1).to_url 
+    state[:card2] = Deck.card_for_string(self.card2).to_url
+    state[:card3] = Deck.card_for_string(self.card3).to_url
+    if self.card4
+      state[:card4] = Deck.card_for_string(self.card4).to_url
+    else 
+      state[:card4] = nil
     end
-
-    state[:card1] = self.card1
-    state[:card2] = self.card2
-    state[:card3] = self.card3
-    state[:card4] = self.card4
-    state[:card5] = self.card5
-
-    
- 
+    if self.card5
+      state[:card5] = Deck.card_for_url(self.card5).to_url 
+    else 
+      state[:card5] = nil 
+    end
     state.to_json
   end
 end

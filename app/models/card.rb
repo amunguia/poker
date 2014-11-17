@@ -11,7 +11,7 @@ class Card
     "#{@number}#{@suit}"
   end
 
-  def as_url
+  def to_url
     Rails.root.join('app', 'assets', 'images', 'cards', "#{@number}#{@suit}.png")    
   end
 end

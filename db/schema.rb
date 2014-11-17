@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141117023303) do
+ActiveRecord::Schema.define(version: 20141117050346) do
 
   create_table "games", force: true do |t|
     t.string   "player_order"
@@ -32,6 +32,8 @@ ActiveRecord::Schema.define(version: 20141117023303) do
     t.integer  "p2"
     t.integer  "p3"
     t.integer  "p4"
+    t.string   "stream"
+    t.string   "current_player"
   end
 
   create_table "rooms", force: true do |t|
