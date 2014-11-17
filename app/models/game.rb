@@ -33,13 +33,17 @@ class Game < ActiveRecord::Base
       [] 
     end
   end
+  
+  def reveal_first_three_cards
+    #implement
+  end
 
-  def reveal_fourth
+  def reveal_fourth_card
     self.card4 = self.stream.split(",")[3]
     self.save
   end
 
-  def reveal_fifth
+  def reveal_fifth_card
     self.card5 = self.stream.split(",")[4]
     self.save
   end

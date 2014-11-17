@@ -8,7 +8,7 @@ if !Room.find_by_name("Basic Room")
   end
   basic_room.save
 
-  medium_room = Room.new do |r|
+  medium_room = Room.new do |r|#
     r.name = "Medium Room"
     r.minimum_bet = 20
   end

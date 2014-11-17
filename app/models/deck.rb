@@ -1,26 +1,22 @@
-#This class represents a deck in the poker game
-#Deck.init is called by the initializer
-
-
 class Deck
 
   def self.init
     @@card_string = []
     @@card_hash = {}
 
-    ha = Card.new 1, "H"
+    ha = Card.new 14, "H"
     @@card_string<< ha.to_s
     @@card_hash[ha.to_s] = ha
 
-    da = Card.new 1, "D"
+    da = Card.new 14, "D"
     @@card_string<< da.to_s
     @@card_hash[da.to_s] = da
 
-    sa = Card.new 1, "S"
+    sa = Card.new 14, "S"
     @@card_string<< sa.to_s
     @@card_hash[sa.to_s] = sa
 
-    ca = Card.new 1, "C"
+    ca = Card.new 14, "C"
     @@card_string<< ca.to_s
     @@card_hash[ca.to_s] = ca
 
