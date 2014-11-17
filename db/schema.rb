@@ -11,19 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141115213513) do
+ActiveRecord::Schema.define(version: 20141117023303) do
 
   create_table "games", force: true do |t|
     t.string   "player_order"
     t.integer  "current_bal"
-    t.integer  "p1_bal"
-    t.integer  "p2_bal"
-    t.integer  "p3_bal"
-    t.integer  "p4_bal"
-    t.integer  "p1_max"
-    t.integer  "p2_max"
-    t.integer  "p3_max"
-    t.integer  "p4_max"
     t.string   "p1_cards"
     t.string   "p2_cards"
     t.string   "p3_cards"
@@ -36,6 +28,10 @@ ActiveRecord::Schema.define(version: 20141115213513) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "table_id"
+    t.integer  "p1"
+    t.integer  "p2"
+    t.integer  "p3"
+    t.integer  "p4"
   end
 
   create_table "rooms", force: true do |t|

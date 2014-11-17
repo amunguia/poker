@@ -23,6 +23,10 @@ class TablesController < ApplicationController
     end
   end
 
+  def show_template
+    @room_name = Room.find_by_id(Table.find_by_id(64).room_id)
+  end
+
   # GET /tables/new
   def new
     if current_user.user_level != 0

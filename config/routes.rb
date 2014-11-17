@@ -13,6 +13,8 @@ Poker::Application.routes.draw do
   resources :rooms
   resources :tables  
 
+  get "show_template" => "tables#show_template"
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
