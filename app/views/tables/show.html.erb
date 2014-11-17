@@ -1,4 +1,62 @@
 <p id="notice"><%= notice %></p>
 <h1> You are in room <%= @room_name %> on table <%= @table.number %></h1>
-<%= link_to 'Edit', edit_table_path(@table) %> |
-<%= link_to 'Back', tables_path %>
+<div id="game-display">
+  <div id="opponents-row" class="row">
+    <div id="first-player" class="opponent col-lg-4">
+      <div class="opponents-cards">
+        <img src="http://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/01_of_spades_A.svg/2000px-01_of_spades_A.svg.png" class="card-img">
+        <img src="http://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/01_of_spades_A.svg/2000px-01_of_spades_A.svg.png" class="card-img">          </div>
+      <div class="opponent-info">
+        <p>Opponent 1 has $1000000.</p>
+      </div>
+    </div>
+    <div id="second-player" class="opponent col-lg-4">
+      <div class="opponents-cards">
+        <img src="http://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/01_of_spades_A.svg/2000px-01_of_spades_A.svg.png" class="card-img">
+        <img src="http://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/01_of_spades_A.svg/2000px-01_of_spades_A.svg.png" class="card-img">
+      </div>
+      <div class="opponent-info">
+        <p>Opponent 2 has $100000.</p>
+      </div>
+    </div>
+    <div id="third-player" class="opponent col-lg-4">
+      <div class="opponents-cards">
+        <img src="http://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/01_of_spades_A.svg/2000px-01_of_spades_A.svg.png" class="card-img">
+        <img src="http://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/01_of_spades_A.svg/2000px-01_of_spades_A.svg.png" class="card-img">
+      </div>
+      <div class="opponent-info">
+        <p>Opponent 3 has $10000.</p>
+      </div>
+    </div>
+  </div>
+  <div id="game-row" class="row">
+    <div class="col-lg-2"></div>
+    <div id="stream-panel" class="col-lg-6">
+      <img src="http://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/01_of_spades_A.svg/2000px-01_of_spades_A.svg.png" id="card1" class="card-img">
+      <img src="http://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/01_of_spades_A.svg/2000px-01_of_spades_A.svg.png" id="card2" class="card-img">
+      <img src="http://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/01_of_spades_A.svg/2000px-01_of_spades_A.svg.png" id="card3" class="card-img">
+      <img src="http://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/01_of_spades_A.svg/2000px-01_of_spades_A.svg.png" id="card4" class="card-img">
+      <img src="http://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/01_of_spades_A.svg/2000px-01_of_spades_A.svg.png" id="card5" class="card-img">
+    </div>
+    <div id="pot-status" class="col-lg-2">
+      <p id="pot-balance">$1000000.</p>
+    </div>
+  </div>
+  <div id="players-row" class="row">
+    <div class="col-lg-3">
+    </div>
+    <div class="col-lg-4" id="my-cards">
+      <img src="http://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/01_of_spades_A.svg/2000px-01_of_spades_A.svg.png" id="card5" class="card-img">
+      <img src="http://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/01_of_spades_A.svg/2000px-01_of_spades_A.svg.png" id="card5" class="card-img">
+      <p id="my-balance">You have $1000000.</p>
+    </div>
+    <div id="action-console" class="col-lg-4">
+      <div id="bet" class="button">
+        <p class="button-text">BET</p>
+      </div>
+      <div id="fold" class="button">
+        <p class="button-text">FOLD</p>
+      </div>      
+    </div> 
+  </div>
+</div>
