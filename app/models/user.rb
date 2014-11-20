@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   STARTING_BALANCE = 10000
   
-  attr_accessor :id, :password, :password_confirmation
+  attr_accessor :id, :password, :password_confirmation, :balance
   belongs_to :room
   belongs_to :table
   belongs_to :game
@@ -29,9 +29,19 @@ class User < ActiveRecord::Base
       self.password_hash = BCrypt::Engine.hash_secret(password, password_salt)
     end
   end
+
+  #Returns true if amt avaiable, false if amt exceeds
+  #balance
+  def deduct(amt)
+    if self.balance > amt
+      self.balance -= amt
+    else
+      false
+    end
+  end
   
   def initial_balance
-    self.balance = STARTING_BALANCE
+    self.balance = 1000000
   end
   
 
