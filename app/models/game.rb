@@ -55,6 +55,20 @@ class Game < ActiveRecord::Base
   end
 
   def current_player
+    if self.current_player == self.p1
+      User.find(self.p1)
+    elsif self.current_player == self.p2
+      User.find(self.p2)
+    elsif self.current_player == self.p3
+      User.find(self.p3)
+    elsif self.current_player == self.p4
+      User.find(self.p4)
+    else
+      nil
+    end
+  end
+
+  def current_player_str
     self.order.split(",")[0]
   end
 
@@ -99,31 +113,17 @@ class Game < ActiveRecord::Base
     return self.order.split(",").length == 1
   end
 
-  def player_bets(id, amt)
-    player = User.find(id)
-    if id == self.p1 && player
-      if player.deduct amt
-        self.p1_contrib += amt
+  def player_bets(amt)
+    if current_player.deduct(amt)
+      player_str = current_player_str
+      if player_str.eql? "p1"
+        self.update p1_contrib: self.p1_contrib + amt
+      elsif player_str.eql? "p2"
+        self.update p2_contrib: self.p1_contrib + amt
+      elsif player_str.eql? "p3"
+        self.update p3_contrib: self.p1_contrib + amt
       else
-        false
-      end
-    elsif id == self.p2 && player
-      if player.deduct amt
-        self.p2_contrib += amt
-      else
-        false
-      end
-    elsif id == self.p3 && player
-      if player.deduct amt
-        self.p3_contrib += amt
-      else
-        false
-      end
-    elsif id == self.p4 && player
-      if player.deduct amt
-        self.p4_contrib += amt
-      else
-        false
+        self.update p4_contrib: self.p1_contrib + amt
       end
     else
       false
@@ -136,20 +136,9 @@ class Game < ActiveRecord::Base
            self.p1_contrib == self.p3_contrib
   end
 
-
-  def current_player_str
-    if self.current_player == self.p1
-      "p1"
-    elsif self.current_player == self.p2
-      "p2"
-    elsif self.current_player == self.p3
-      "p3"
-    elsif self.current_player == self.p4
-      "p4"
-    end
-  end
-
   def to_json
+    self.save
+    self.reload
     state  = {}
     
     if self.p1
@@ -212,17 +201,15 @@ class Game < ActiveRecord::Base
  
   def self.get_users
     users = []
-    users<< (User.new email: 'aaaaa', username: 'aaaaa', password: 'aa', password_confirmation: 'aa')
-    users<< (User.new email: 'bbbbb', username: 'bbbbb', password: 'bb', password_confirmation: 'bb')
-    users<< (User.new email: 'ccccc', username: 'ccccc', password: 'cc', password_confirmation: 'cc')
-    users<< (User.new email: 'ddddd', username: 'ddddd', password: 'dd', password_confirmation: 'dd')
-    users<< (User.new email: 'eeeee', username: 'eeeee', password: 'ee', password_confirmation: 'ee')
+    users<< (User.new email: 'aaaaa12', username: 'aaaaa1', password: 'aa', password_confirmation: 'aa')
+    users<< (User.new email: 'bbbbb12', username: 'bbbbb1', password: 'bb', password_confirmation: 'bb')
+    users<< (User.new email: 'ccccc12', username: 'ccccc1', password: 'cc', password_confirmation: 'cc')
+    users<< (User.new email: 'ddddd12', username: 'ddddd1', password: 'dd', password_confirmation: 'dd')
+    users<< (User.new email: 'eeeee12', username: 'eeeee1', password: 'ee', password_confirmation: 'ee')
     
     users
   end
 
-
-  
 
   def reveal_first_three_cards
     self.card1 = self.stream.split(",")[0]

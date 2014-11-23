@@ -4,6 +4,7 @@ class GamesController < ApplicationController
     @game = Game.find(get_card_params[:id])
     if (@game)
       @cards = @game.cards_for_player current_user.id
+      
     else
       @cards = []
     end
@@ -13,6 +14,7 @@ class GamesController < ApplicationController
     if !current_user
       #not logged in
     else
+      #Check user has min balance
       @game = Game.find(join_game_params[:id])
       if @game && @game.add_player current_user.id 
         current_user.game_id = @game.id
@@ -33,11 +35,15 @@ class GamesController < ApplicationController
     end
   
     if current_user.game_id != @game.id
-        #user is not in game -- render 401
+        result = MoveResult.create_fail "Sorry. You are not participating in this game."
+        render :json => result
+        return
     end
 
     if @game.current_user != @current_user.id
-      #not users turn -- render json, not your turn
+      result = MoveResult.create_fail "Sorry. It is not your turn."
+      render :json => result
+      return
     end
 
     if move_params[:action_type].eql? "fold"
@@ -46,14 +52,16 @@ class GamesController < ApplicationController
          winner_id = @game.get_winner  #winner bc everyone else folded
        end
     else
-       if !add_bet_to_pot
-         #user does not have enough
+       if !@game.player_bets move_params[:amt]
+         result = MoveResult.create_fail "Sorry. You do not have enough money for that bet."
+         render :json => result
+         return
        end
     end
 
     if @game.table_even?
        if @game.next_card? 
-         
+
        else
          winner_id = @game.get_winner
        end
