@@ -1,0 +1,13 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Welcome <%= @room.name  %></h1>
+
+<ul>
+  <% @tables.each do |t|  %>
+    <li><%= link_to "#{t.number}", t %></li> 
+  <% end %>
+</ul>
+
+
+<%= link_to 'Edit', edit_room_path(@room) %> |
+<%= link_to 'Back', rooms_path %>

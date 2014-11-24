@@ -2,14 +2,21 @@
 @import "bootstrap";
 
 
-.masthead{
-	color:#222;
-    background-image:url(image-path('banner_cards.jpg'));
-    background-repeat:no-repeat;
-	height: 200px;
+.masthead {
+  color:#222;
+  background-image:url(image-path('banner_cards.jpg'));
+  background-repeat:no-repeat;
+  height: 200px;
 }
  
+.nav-text {
+  font-size: 200%;
+}
 
+.nav-login-info {
+  float: right;
+  padding: 10px;
+}
 
 
 .hero-unit {
@@ -27,9 +34,9 @@
 
 
 body {
-	color: #9d9d9d;		
-	background-image: url(image-path('green_bg.jpg'));
-	background-position: center;
-		
+  color: #9d9d9d;   
+  background-image: url(image-path('green_bg.jpg'));
+  background-position: center;
+    
 }
 

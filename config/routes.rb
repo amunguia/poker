@@ -7,16 +7,21 @@ Poker::Application.routes.draw do
   get "play" => "rooms#index", :as => "play"
   get "account" => "sessions#account", :as => "account"
   get "rules" => "static_pages#rules", :as => "rules"
-  
+
+  #login and registration
   get "log_out" => "sessions#destroy", :as => "log_out"
   get "log_in" => "sessions#new", :as => "log_in"
-  get "sign_up" => "users#new", :as => "sign_up"
-  get "about" => "static_pages#about", :as => "about"
+  get "register" => "users#new", :as => "register"
   get "logged_in" => "static_pages#logged_in", :as => "logged_in"
+  
   root :to => "static_pages#home"
   resources :users
   resources :sessions
-  
+  resources :rooms
+  resources :tables  
+
+  get "show_template" => "tables#show_template"
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
