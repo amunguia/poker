@@ -1,6 +1,12 @@
 Poker::Application.routes.draw do
   get "sessions/new"
   get "users/new"
+
+  #navbar
+  get "home" => "static_pages#home", :as => "home"
+  get "play" => "rooms#index", :as => "play"
+  get "account" => "sessions#account", :as => "account"
+  get "rules" => "static_pages#rules", :as => "rules"
   
   get "log_out" => "sessions#destroy", :as => "log_out"
   get "log_in" => "sessions#new", :as => "log_in"
