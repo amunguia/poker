@@ -53,7 +53,30 @@
 
                 <!-- logged in as -->
                 <div class="nav-login-info">
-                    <%= link_to "Login", log_in_path %>
+                    <ul class="list-inline">
+                    <% if current_user %>
+                        <li>
+                            Logged in as 
+                            <%= link_to current_user.username, account_path %>
+                        </li>
+                        <li>
+                            |
+                        </li>
+                        <li>
+                            <%= link_to "Log Out", log_out_path %>
+                        </li>
+                    <% else %>
+                        <li>
+                            <%= link_to "Login", log_in_path %>
+                        </li>
+                        <li>
+                            |
+                        </li>
+                        <li>
+                            <%= link_to "Register", register_path %>
+                        </li>
+                    <% end %>
+                    </ul>
                 </div>
 
             </div>

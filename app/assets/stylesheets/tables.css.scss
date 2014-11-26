@@ -1,0 +1,76 @@
+#opponents-row {
+  height: 200px;
+  background-color: #caede4;
+}
+
+.opponent {
+  height: 180px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-left: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.card-img {
+  width: 80px;
+  height: 120px;
+}
+
+#game-row {
+  height: 200px;
+  background-color: #9ddeba;
+}
+
+#stream-panel {
+  padding-top: 20px;
+}
+
+#pot-status {
+  border: 1px solid black;
+  border-radius: 100px;
+  background-color: yellow;
+  height: 200px;
+}
+
+#pot-balance {
+  text-align: center;
+  padding-top: 75px;
+}
+
+#players-row {
+  height: 200px;
+  background-color: #caede4;  
+}
+
+#my-cards {
+  height: 200px;
+  padding-top: 30px;  
+}
+
+#action-console {
+  background-color: gray;
+  height: 200px;
+}
+
+#bet {
+  margin-top: 10px;
+  background-color: red;
+}
+
+#fold {
+  background-color: yellow;
+}
+
+.button {
+  width: 200px;
+  height: 75px;
+  margin-bottom: 25px;
+  text-align: center;
+  font-size: 2em;
+}
+
+.button-text {
+  padding-top: 20px;
+  color: white;
+}
+
