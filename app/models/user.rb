@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   validates_presence_of :email
   validates_uniqueness_of :email
   
-  def self.authenticate(email, password)f
+  def self.authenticate(email, password)
     user = find_by_email(email)
     if user && user.password_hash == BCrypt::Engine.hash_secret(password, user.password_salt)
       user
@@ -23,8 +23,9 @@ class User < ActiveRecord::Base
   end
   
   def deduct(amt)
+    puts "deducting ..."
     if self.balance > amt
-      self.update(balance: self.balance - amt)
+      self.update(balance: (self.balance - amt))
     else
       false
     end
@@ -42,6 +43,6 @@ class User < ActiveRecord::Base
   end
 
   def set_level
-    self.user_level = 1
+    self.user_level ||= 1
   end
 end

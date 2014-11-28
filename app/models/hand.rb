@@ -1,4 +1,4 @@
-class Hand
+ddclass Hand
   
   attr_accessor :numbers
   

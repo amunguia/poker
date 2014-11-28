@@ -7,7 +7,11 @@ Poker::Application.routes.draw do
   get "sign_up" => "users#new", :as => "sign_up"
   get "about" => "static_pages#about", :as => "about"
   get "logged_in" => "static_pages#logged_in", :as => "logged_in"
+  post "join_game" => "games#join_game", :as => "join_game"
+  get "get_cards" => "games#get_cards", :as => "get_cards"
+  post "move" => "games#move", :as => "move"
   root :to => "static_pages#home"
+  get "game_status" => "games#get_game", :as => "game_status"
   resources :users
   resources :sessions
   resources :rooms

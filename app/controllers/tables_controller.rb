@@ -19,7 +19,11 @@ class TablesController < ApplicationController
       render :file => "public/401.html", :status => :unauthorized
       return
     else
-      @room_name = Room.find_by_id(Table.find_by_id(params[:id]).room_id).name 
+      @table = Table.find_by_id(params[:id])
+      @room_name = Room.find_by_id(@table.room_id).name 
+      @table.game ||= create_game
+      @game_id = @table.game.id
+      @player_position = @table.game.is_user_in_game? current_user
     end
   end
 
@@ -100,6 +104,12 @@ class TablesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_table
       @table = Table.find(params[:id])
+    end
+
+    def create_game
+      game = Game.new
+      game.save
+      game
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

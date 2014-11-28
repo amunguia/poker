@@ -13,4 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require ./build_game.js
+//= require ./game_start.js
+//= require ./ajax_function.js
 //= require_tree .

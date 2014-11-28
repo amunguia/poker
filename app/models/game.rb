@@ -2,10 +2,8 @@ require 'json'
 
 class Game < ActiveRecord::Base
  
-  attr_accessor :id
   
   belongs_to :table
-  has_many :users
 
   def initialize
     super()
@@ -19,18 +17,34 @@ class Game < ActiveRecord::Base
     self.p2_contrib = 0
     self.p3_contrib = 0
     self.p4_contrib = 0
+    self.each_contrib = 0
+    self.round_count = 0
+    self.players_left = 4
     self.order = "p1,p2,p3,p4"
   end
 
   def add_player(id)
+    if (p1 == id || p2 == id || p3 == id || p4 == id) 
+      return false
+    end
+
     if self.p1 == nil
       self.p1 = id
+      self.current_player = id
+      self.save
+      "p1"
     elsif self.p2 == nil
       self.p2 = id
+      self.save
+      "p2"
     elsif self.p3 == nil
       self.p3 = id
+      self.save
+      "p3"
     elsif self.p4 == nil
       self.p4 = id
+      self.save
+      "p4"
     else
       false
     end
@@ -42,29 +56,34 @@ class Game < ActiveRecord::Base
     end
 
     if self.p1 == id
-      self.p1_cards.split ","
+      cards = self.p1_cards.split ","
     elsif self.p2 == id
-      self.p2_cards.split ","
+      cards = self.p2_cards.split ","
     elsif self.p3 == id
-      self.p3_cards.split ","
+      cards = self.p3_cards.split ","
     elsif self.p4 == id
-      self.p4_cards.split ","
+      cards = self.p4_cards.split ","
+    end
+
+    if cards
+      array = []
+      array<< Card.url_for(cards[0])
+      array<< Card.url_for(cards[1])
+      array
     else
-      [] 
+      []
     end
   end
 
-  def current_player
-    if self.current_player == self.p1
+  def current_player_obj
+    if self.current_player_str == "p1"
       User.find(self.p1)
-    elsif self.current_player == self.p2
+    elsif self.current_player_str == "p2"
       User.find(self.p2)
-    elsif self.current_player == self.p3
+    elsif self.current_player_str == "p3"
       User.find(self.p3)
-    elsif self.current_player == self.p4
+    else self.current_player_str == "p4"
       User.find(self.p4)
-    else
-      nil
     end
   end
 
@@ -76,6 +95,9 @@ class Game < ActiveRecord::Base
     array = self.order.split(",")
     array = array.slice(1, array.length - 1)
     self.order = array.join(",")
+    set_current_player array[0]
+    self.players_left -= 1
+    self.save
     array[0]
   end
 
@@ -83,19 +105,47 @@ class Game < ActiveRecord::Base
     #Call codd  
   end
 
+  def get_winner
+    p1
+  end
+
   def is_full?
     !(self.p1 == nil || self.p2 == nil || self.p3 == nil || self.p4 == nil)
+  end
+
+  def is_not_turn(user)
+    current_player_obj.id != user.id
+  end
+
+  def is_user_in_game?(user)
+    if p1 == user.id
+      "p1"
+    elsif p2 == user.id
+      "p2"
+    elsif p3 == user.id
+      "p3"
+    elsif p4 == user.id
+      "p4"
+    else
+      false
+    end
   end
 
   def next_card?
     if self.card1 == nil
       self.reveal_first_three_cards
+      self.round_count = 0
+      self.save
       true
     elsif self.card4 == nil
       self.reveal_fourth_card
+      self.round_count = 0
+      self.save
       true
     elsif self.card5 == nil
       self.reveal_fifth_card
+      self.round_count = 0
+      self.save
       true
     else
       false
@@ -106,6 +156,9 @@ class Game < ActiveRecord::Base
     array = self.order.split(",")
     array = array.slice(1, array.length - 1)<< array[0]
     self.order = array.join(",")
+    self.round_count += 1
+    set_current_player array[0]
+    self.save
     array[0]
   end
 
@@ -114,86 +167,166 @@ class Game < ActiveRecord::Base
   end
 
   def player_bets(amt)
-    if current_player.deduct(amt)
-      player_str = current_player_str
+    player_str = current_player_str
+    if player_str.eql? "p1"
+      if (p1_contrib + amt) < each_contrib
+        return false
+      end
+    elsif player_str.eql? "p2"
+      if (p2_contrib + amt) < each_contrib
+        return false
+      end
+    elsif player_str.eql? "p3"
+      if (p3_contrib + amt) < each_contrib
+        return false
+      end
+    elsif player_str.eql? "p4"
+      if (p4_contrib + amt) < each_contrib
+        return false
+      end
+    end
+
+    if current_player_obj.deduct(amt)
       if player_str.eql? "p1"
+        if (p1_contrib + amt) > each_contrib
+          self.update each_contrib: (p1_contrib + amt)
+        end
         self.update p1_contrib: self.p1_contrib + amt
       elsif player_str.eql? "p2"
-        self.update p2_contrib: self.p1_contrib + amt
+       if (p2_contrib + amt) > each_contrib
+          self.update each_contrib: (p2_contrib + amt)
+        end
+        self.update p2_contrib: self.p2_contrib + amt
       elsif player_str.eql? "p3"
-        self.update p3_contrib: self.p1_contrib + amt
+        if (p3_contrib + amt) > each_contrib
+          self.update each_contrib: (p3_contrib + amt)
+        end        
+        self.update p3_contrib: self.p3_contrib + amt
       else
-        self.update p4_contrib: self.p1_contrib + amt
+        if (p4_contrib + amt) > each_contrib
+          self.update each_contrib: (p4_contrib + amt)
+        end 
+        self.update p4_contrib: self.p4_contrib + amt       
       end
     else
       false
     end
   end
 
-  def table_even?
-    return self.p1_contrib == self.p2_contrib &&
-           self.p3_contrib == self.p4_contrib &&
-           self.p1_contrib == self.p3_contrib
+  def set_current_player(string)
+    if string.eql? "p1"
+      self.current_player = self.p1
+    elsif string.eql? "p2"
+      self.current_player = self.p2
+    elsif string.eql? "p3"
+      self.current_player = self.p3
+    else
+      self.current_player =self.p4
+    end
   end
 
-  def to_json
+  def table_even?
+    if self.round_count < self.players_left 
+      return false
+    end
+
+    match = -1
+
+    self.order.split(",").each do |p|
+      if p.eql? "p1"
+        contrib = self.p1_contrib
+      elsif p.eql? "p2"
+        contrib = self.p2_contrib
+      elsif p.eql? "p3"
+        contrib = self.p3_contrib
+      else
+        contrib = self.p4_contrib
+      end
+    
+      if match < 0
+        match = contrib
+      elsif match != contrib
+        return false
+      end
+    end
+    true
+  end
+
+  def valid_player(user)
+    user.id == p1 || user.id == p2 || user.id == p3 || user.id == p4
+  end
+
+  def to_json()
     self.save
     self.reload
     state  = {}
+    users = {}
     
     if self.p1
       player = User.find_by_id(self.p1)
-      state[:p1_username] = player.username
-      state[:p1_bal] = player.balance
+      object = {:username => player.username, :balance => player.balance}
+      users["p1"] = object
     else
-      state[:p1_username] = "--"
-      state[:p1_bal] = "--"
+      users["p1"] = {:username => "----", :balance => "----"}
     end
 
     if self.p2
       player = User.find_by_id(self.p2)
-      state[:p2_username] = player.username
-      state[:p2_bal] = player.balance
+      object = {:username => player.username, :balance => player.balance}
+      users["p2"] = object
     else
-      state[:p2_username] = "--"
-      state[:p2_bal] = "--"
+      users["p2"] = {:username => "----", :balance => "----"}
     end
 
     if self.p3
       player = User.find_by_id(self.p3)
-      state[:p3_username] = player.username
-      state[:p3_bal] = player.balance
+      object = {:username => player.username, :balance => player.balance}
+      users["p3"] = object
     else
-      state[:p3_username] = "--"
-      state[:p3_bal] = "--"
+      users["p3"] = {:username => "----", :balance => "----"}
     end
 
     if self.p4
       player = User.find_by_id(self.p4)
-      state[:p4_username] = player.username
-      state[:p4_bal] = player.balance
+      object = {:username => player.username, :balance => player.balance}
+      users["p4"] = object
     else
-      state[:p4_username] = "--"
-      state[:p4_bal] = "--"
+      users["p4"] = {:username => "----", :balance => "----"}
     end
  
+    state[:started] = is_full?
+    state[:users] = users
+    state[:current_player] = current_player_str
+    state[:each_contrib] = each_contrib
     state[:p1_contrib] = p1_contrib
     state[:p2_contrib] = p2_contrib
     state[:p3_contrib] = p3_contrib
     state[:p4_contrib] = p4_contrib
     state[:pot_bal] = self.p1_contrib + self.p2_contrib + self.p3_contrib + self.p4_contrib
-    state[:card1] = Deck.card_for_string(self.card1).to_url 
-    state[:card2] = Deck.card_for_string(self.card2).to_url
-    state[:card3] = Deck.card_for_string(self.card3).to_url
-    if self.card4
-      state[:card4] = Deck.card_for_string(self.card4).to_url
-    else 
+    if (card1) 
+      state[:card1] = Deck.card_for_string(self.card1).to_url 
+    else
+      state[:card1] = nil
+    end
+    if (card2) 
+      state[:card2] = Deck.card_for_string(self.card2).to_url 
+    else
+      state[:card2] = nil
+    end
+    if (card3) 
+      state[:card3] = Deck.card_for_string(self.card3).to_url 
+    else
+      state[:card3] = nil
+    end
+    if (card4) 
+      state[:card4] = Deck.card_for_string(self.card4).to_url 
+    else
       state[:card4] = nil
     end
-    if self.card5
-      state[:card5] = Deck.card_for_url(self.card5).to_url 
-    else 
-      state[:card5] = nil 
+    if (card5) 
+      state[:card5] = Deck.card_for_string(self.card5).to_url 
+    else
+      state[:card5] = nil
     end
     state.to_json
   end
