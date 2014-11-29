@@ -57,13 +57,13 @@
                     <% if current_user %>
                         <li>
                             Logged in as 
-                            <%= link_to current_user.username, account_path %>
+                            <b><%= link_to current_user.username, account_path %></b>
                         </li>
                         <li>
                             |
                         </li>
                         <li>
-                            <%= link_to "Log Out", log_out_path %>
+                            <%= link_to "Logout", log_out_path %>
                         </li>
                     <% else %>
                         <li>

@@ -1,13 +1,22 @@
+<% flash.each do |key, value| %>
+      <%= content_tag(:div, value, class: "alert") %>
+<% end %>
+
 <h1>Log In</h1>
 
 <%= form_tag sessions_path do %>
   <p>
     <%= label_tag :email %><br />
-    <%= text_field_tag :email, params[:email] %>
+    <%= text_field_tag :email, params[:email], :class => "form-field" %>
   </p>
   <p>
     <%= label_tag :password %><br />
-    <%= password_field_tag :password %>
+    <%= password_field_tag :password, nil, :class => "form-field" %>
   </p>
-  <p class="button"><%= submit_tag "Log in" %></p>
+  <p>
+    <%= button_tag(type: "submit", class: "btn btn-form") do%>
+      Login
+    <% end %>
+  </p>
 <% end %>
+<p>Don't have an account yet?  <%= link_to "Register", register_path %></p>

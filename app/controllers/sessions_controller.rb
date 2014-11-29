@@ -18,4 +18,11 @@ class SessionsController < ApplicationController
     redirect_to root_url, :notice => "Logged out!"
   end
 
+  #do this for rooms index controller as well?
+  def account
+    if session[:user_id] == nil
+      redirect_to log_in_path, notice: "Must Login too see account."
+    end
+  end
+
 end
