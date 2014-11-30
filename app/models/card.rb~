@@ -29,6 +29,6 @@ class Card
     Rails.root.join('app', 'assets', 'images', 'cards', "#{@number}#{@suit}.png")    
   end
   def showcard
-   print " #{number} #{suit} ";
+   puts " #{number} #{suit} ";
   end
 end
