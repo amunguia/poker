@@ -1,5 +1,5 @@
 load 'card.rb'
-load 'hand2.rb'
+load 'hand.rb'
 class Test
 
 
