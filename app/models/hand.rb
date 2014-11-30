@@ -37,20 +37,20 @@ class Hand
   @combination.each do |item|
   
     score = 0
-  if(straight_flush(item) > 0)
-       score = straight_flush(item)
-  elsif four_kind(item) > 0
-        score = four_kind(item)
-  elsif full_house(item) > 0
-         score = full_house(item)
-  elsif  flush(item) > 0
-         score = flush(item)
-  elsif three_kind(item) >0
-  	score = three_kind(item)
-  elsif two_pair(item) > 0
-        score = two_pair(item)
-  elsif pair(item) > 0
-        score = pair(item)
+  if((score = straight_flush(item)) > 0)
+        
+  elsif (score =four_kind(item)) > 0
+        
+  elsif (score =full_house(item)) > 0
+         
+  elsif (score = flush(item)) > 0
+         
+  elsif (score =three_kind(item)) >0
+  	
+  elsif (score =two_pair(item)) > 0
+        
+  elsif (score =pair(item)) > 0
+       
   else
         score = high_card(item) / 100.0
   end
