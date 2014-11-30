@@ -7,6 +7,7 @@ function get_game() {
 	    success: function(data) {
             console.log(data);
 	    	build_game(data);
+            show_message(data.message);
 	    }
 	});
 }
@@ -22,7 +23,11 @@ function join_game() {
         success: function(data) {
             if (data.result) {
                 window.PLAYER_POSITION = data.player;
+                poker.error = false;
+            } else {
+                poker.error = true;
             }
+            show_message(data.message);
         }      
 	});
 }
@@ -37,6 +42,11 @@ function get_cards() {
                 poker.your_card1 = "../"+cards[0];
                 $("#mycard2").attr("src", "../"+cards[1]);
                 poker.your_card2 = "../"+cards[1];        
+            }
+            if (data.result) {
+                poker.error = false;
+            } else {
+                poker.error = true;
             }
         }
 	});
@@ -65,12 +75,16 @@ function move(action, amount) {
         	amt: amount
         },
         success: function(data) {
-            console.log(data);
             if (data.success) {
-        	    build_game(data);
+        	    build_game(game);
                 remove_player_turn_panel();
             } else {
                 console.log(data.message);
+            }
+            if (data.result) {
+                poker.error = false;
+            } else {
+                poker.error = true;
             }
         }
     });

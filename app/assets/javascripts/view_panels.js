@@ -81,7 +81,10 @@ function remove_player_turn_panel() {
 function build_player_bets_panel() {
     remove_player_turn_panel();
 
-    var html = '<p>Please enter bet amount: <input id="bet_amt" type="text"></input></p>';
+    var min_bet = poker.min_bet;
+    var html = '<p>Minimum bet is $'+min_bet;
+    html += '<br>Please enter bet amount: ';
+    html += '<input id="bet_amt" type="text"></input></p>';
     html += '<div id="push-bet" class="button button-text action-panel">BET</div>';
     html += '<div id="go-back" class="button button-text action-panel">BACK</div>';
 

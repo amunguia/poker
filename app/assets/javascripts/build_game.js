@@ -2,11 +2,12 @@
 
 function build_game(game) {
 	game = JSON.parse(game);
-
 	show_game_started(game.started);
 	update_players(game.users);
 	update_cards(game);
 	update_pot(game.pot_bal);
+	show_message(game.message);
+	poker.min_bet = game.min_bet
 
 	if (game.current_player == window.PLAYER_POSITION &&
 		  poker.your_card1) {	//Wait for game to start before showing panel.

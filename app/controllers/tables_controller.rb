@@ -21,7 +21,7 @@ class TablesController < ApplicationController
     else
       @table = Table.find_by_id(params[:id])
       @room_name = Room.find_by_id(@table.room_id).name 
-      @table.game ||= create_game
+      @table.game ||= create_game @table
       @game_id = @table.game.id
       @player_position = @table.game.is_user_in_game? current_user
     end
@@ -106,8 +106,8 @@ class TablesController < ApplicationController
       @table = Table.find(params[:id])
     end
 
-    def create_game
-      game = Game.new
+    def create_game table
+      game = Game.new table.min_bet
       game.save
       game
     end

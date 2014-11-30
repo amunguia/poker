@@ -9,6 +9,7 @@ var poker = {
 	player: "not in game",
     playing: false,
     passed: false,
+    error: false,
 	players: {
         player1: {
         	username: "----",
@@ -47,7 +48,11 @@ $(document).ready(function() {
 });
 
 function show_message(message) {
-    console.log(message);
+    if (poker.error) {
+        return;
+    }
+    console.log("message: "+message);
+    $("#message").html(message);
 }
 
 function if_needed_get_cards() {

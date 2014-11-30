@@ -63,6 +63,10 @@ class GamesController < ApplicationController
          winner_id = @game.get_winner  #winner bc everyone else folded
        end
     else
+       if @game.new_round && (params[:amt].to_i < @game.min_bet && params[:amt].to_i != 0)
+         render :json => {:message => "Sorry. Your bet is below the minimum bet.", :result => false}
+         return
+       end
        if !@game.player_bets params[:amt].to_i
          render :json => {:message => "Sorry. You do not have enough money for that bet.", :result => false}
          return

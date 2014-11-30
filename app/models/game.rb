@@ -5,7 +5,7 @@ class Game < ActiveRecord::Base
   
   belongs_to :table
 
-  def initialize
+  def initialize(min_bet)
     super()
     deck = Deck.new_deck
     self.stream = deck.slice(0,5).join ","
@@ -20,6 +20,9 @@ class Game < ActiveRecord::Base
     self.each_contrib = 0
     self.round_count = 0
     self.players_left = 4
+    self.message = ""
+    self.min_bet = min_bet
+    self.new_round = true
     self.order = "p1,p2,p3,p4"
   end
 
@@ -27,22 +30,27 @@ class Game < ActiveRecord::Base
     if (p1 == id || p2 == id || p3 == id || p4 == id) 
       return false
     end
+    user = User.find(id)
 
     if self.p1 == nil
       self.p1 = id
       self.current_player = id
+      self.message = "#{user.username} joined the game."
       self.save
       "p1"
     elsif self.p2 == nil
       self.p2 = id
+      self.message = "#{user.username} joined the game."
       self.save
       "p2"
     elsif self.p3 == nil
       self.p3 = id
+      self.message = "#{user.username} joined the game."
       self.save
       "p3"
     elsif self.p4 == nil
       self.p4 = id
+      self.message = "#{user.username} joined the game."
       self.save
       "p4"
     else
@@ -97,6 +105,7 @@ class Game < ActiveRecord::Base
     self.order = array.join(",")
     set_current_player array[0]
     self.players_left -= 1
+    self.message = "#{current_player_obj.username} folds."
     self.save
     array[0]
   end
@@ -135,16 +144,19 @@ class Game < ActiveRecord::Base
     if self.card1 == nil
       self.reveal_first_three_cards
       self.round_count = 0
+      self.new_round = true
       self.save
       true
     elsif self.card4 == nil
       self.reveal_fourth_card
       self.round_count = 0
+      self.new_round  = true
       self.save
       true
     elsif self.card5 == nil
       self.reveal_fifth_card
       self.round_count = 0
+      self.new_round = true
       self.save
       true
     else
@@ -191,22 +203,38 @@ class Game < ActiveRecord::Base
         if (p1_contrib + amt) > each_contrib
           self.update each_contrib: (p1_contrib + amt)
         end
+        if new_round && amt > min_bet
+            new_round = false
+        end
         self.update p1_contrib: self.p1_contrib + amt
+        self.update message: "#{current_player_obj.username} bet $#{amt}"
       elsif player_str.eql? "p2"
        if (p2_contrib + amt) > each_contrib
           self.update each_contrib: (p2_contrib + amt)
         end
+        if new_round && amt > min_bet
+            new_round = false
+        end        
         self.update p2_contrib: self.p2_contrib + amt
+        self.update message: "#{current_player_obj.username} bet $#{amt}"
       elsif player_str.eql? "p3"
         if (p3_contrib + amt) > each_contrib
           self.update each_contrib: (p3_contrib + amt)
         end        
+        if new_round && amt > min_bet
+            new_round = false
+        end        
         self.update p3_contrib: self.p3_contrib + amt
+        self.update message: "#{current_player_obj.username} bet $#{amt}"
       else
         if (p4_contrib + amt) > each_contrib
           self.update each_contrib: (p4_contrib + amt)
         end 
-        self.update p4_contrib: self.p4_contrib + amt       
+        if new_round && amt > min_bet
+            new_round = false
+        end        
+        self.update p4_contrib: self.p4_contrib + amt  
+        self.update message: "#{current_player_obj.username} bet $#{amt}"     
       end
     else
       false
@@ -297,11 +325,15 @@ class Game < ActiveRecord::Base
     state[:started] = is_full?
     state[:users] = users
     state[:current_player] = current_player_str
+    state[:message] = message
+    state[:new_round] = new_round
+    state[:min_bet] = get_min_bet
     state[:each_contrib] = each_contrib
     state[:p1_contrib] = p1_contrib
     state[:p2_contrib] = p2_contrib
     state[:p3_contrib] = p3_contrib
     state[:p4_contrib] = p4_contrib
+    state[:result] = true
     state[:pot_bal] = self.p1_contrib + self.p2_contrib + self.p3_contrib + self.p4_contrib
     if (card1) 
       state[:card1] = Deck.card_for_string(self.card1).to_url 
@@ -359,4 +391,21 @@ class Game < ActiveRecord::Base
     self.card5 = self.stream.split(",")[4]
     self.save
   end  
+
+  def get_min_bet
+    if new_round
+      min_bet
+    else
+      player = current_player_str
+      if player.eql? "p1"
+        each_contrib - p1_contrib
+      elsif player.eql? "p2"
+        each_contrib - p2_contrib
+      elsif player.eql? "p3"
+        each_contrib - p3_contrib
+      else
+        each_contrib - p4_contrib
+      end
+    end
+  end
 end
