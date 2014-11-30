@@ -66,7 +66,7 @@ class Hand
     
   def straight_flush(set)
     if straight(set) > 0 && flush(set) > 0
-      return 10 + high_card(set).to_i / 100.0
+      return 10 + high_card(set).to_i / 100.0 + (set[3].number.to_i / 100.0)
     end
     return 0
   end
@@ -97,7 +97,7 @@ class Hand
         i += 1
         end
         if(i == 4)
-           return 5 + high_card(set).to_i / 100.0
+           return 5 + high_card(set).to_i / 100.0 + set[3].number.to_i / 100
         end
 
 
