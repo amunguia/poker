@@ -25,12 +25,16 @@ if !Room.find_by_name("Basic Room")
     Table.new do |t|
       t.number = i
       t.room = basic_room  
+<<<<<<< HEAD
       t.min_bet = basic_room.minimum_bet
+=======
+>>>>>>> dong
     end.save
 
     Table.new do |t|
       t.number = i
       t.room = medium_room
+<<<<<<< HEAD
       t.min_bet = medium_room.minimum_bet
     end.save
 
@@ -38,6 +42,13 @@ if !Room.find_by_name("Basic Room")
       t.number = i
       t.room = high_roller_room
       t.min_bet = high_roller_room.minimum_bet
+=======
+    end.save
+
+    Table.new do |t|
+      t.number = i
+      t.room = high_roller_room
+>>>>>>> dong
     end.save
   end
 end
