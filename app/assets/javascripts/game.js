@@ -48,9 +48,9 @@ $(document).ready(function() {
 });
 
 function show_message(message) {
-    if (poker.error) {
-        return;
-    }
+    //if (poker.error) {
+    //    return;
+    //}
     console.log("message: "+message);
     $("#message").html(message);
 }
