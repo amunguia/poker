@@ -1,18 +1,24 @@
 <h1>Welcome <%= current_user.username%></h1>
-<table class="account-table ">
-	<tr>
-		<td><b>Username:</b></td>
-		<td><%= current_user.username %></td>
-	</tr>
-	<tr>
-		<td><b>E-mail:</b></td>
-		<td><%= current_user.email %></td>
-	</tr>
-	<tr>
-		<td><b>Balance:</b></td>
-		<td>$<%= current_user.balance %></td>
-	</tr>
-</table>
+<div class="row">
+	<div class="col-sm-1">
+	</div>
+	<div class="col-sm-6">
+		<table class="account-table">
+			<tr>
+				<td><b>Username:</b></td>
+				<td><%= current_user.username %></td>
+			</tr>
+			<tr>
+				<td><b>E-mail:</b></td>
+				<td><%= current_user.email %></td>
+			</tr>
+			<tr>
+				<td><b>Balance:</b></td>
+				<td>$<%= current_user.balance %></td>
+			</tr>
+		</table>
+	</div>
+</div>
 <br>
 
 <%= link_to "Logout", log_out_path %>

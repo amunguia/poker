@@ -1,5 +1,30 @@
 <h1>Welcome to Quick Poker</h1>
-<ul>
-	<li><%= link_to "Login", log_in_path %></li>
-	<li><%= link_to "Register", register_path %></li>
-</ul>				
+<br>
+
+<div class="row">
+	<div class="col-sm-6">
+	<p>
+		Blah blah blah Poker is a family of card games involving betting and individual play, whereby the winner is determined by the ranks and combinations of their cards, some of which remain hidden until the end of the game. Poker games vary in the number of cards dealt, the number of shared or "community" cards and the number of cards that remain hidden. The betting procedures vary among different poker games in such ways as betting limits and splitting the pot between a high hand and a low hand. blah blah blah. 
+	</p>
+	</div>
+	<div class="col-sm-6">
+		<div class="hero-unit login-box">
+			<center>
+			<h3>Get Started</h3>
+			<br>
+
+			<% if current_user %>
+				<%= button_to "Play Now", play_path, :class => "btn  btn-lg btn-block btn-danger login-button", :method => :get %>
+				<br>
+				<%= button_to "View Your Account", account_path, :class => "btn btn-lg btn-block btn-warning login-button", :method => :get %>
+			<% else %>
+				<%= button_to "Login", log_in_path, :class => "btn  btn-lg btn-block btn-primary login-button", :method => :get %>
+				<br>
+				<%= button_to "Sign Up for Free", register_path, :class => "btn btn-lg btn-block btn-success login-button", :method => :get %>
+			<% end %>
+
+			</center>
+		</div>
+	</div>
+</div>	
+

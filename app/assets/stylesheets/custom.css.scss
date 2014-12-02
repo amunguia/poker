@@ -37,13 +37,32 @@
   border-color: #9d9d9d;
 }
 
-.form-field {
-  color: #000000;
+.account-table, td, th {
+  padding: 5px;
+  padding-right: 10px;
 }
 
-.account-table, td {
-  padding-left: 20px;
-  padding-right: 40px;
+.form-field {
+  color: #000000;
+  width: 300px;
+}
+
+.form-button {
+  width: 300px;
+  color: #222;
+  font-weight: bold;
+}
+
+.login-box {
+  background-color: #1a1a1a;
+  padding-right: 25px;
+  padding-left: 25px;
+}
+
+.login-button {
+  color: #222;
+  font-size: 120%;
+  font-weight: bold;
 }
 
 .footer {
