@@ -7,6 +7,7 @@ class Hand
       @mycards = Array.new
       @besthand
       @bestscore
+      @combination
      
       
   end
