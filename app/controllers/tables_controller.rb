@@ -103,8 +103,8 @@ class TablesController < ApplicationController
 
   def get_game
     table = Table.find params[:id].to_i
-    if (table && table.game)
-      render :json => {game_id: table.game.id}
+    if table
+      render :json => {game_id: table.get_game.id}
     else
       render :json => {error: "Not a valid table id."}
     end

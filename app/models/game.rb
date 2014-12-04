@@ -116,6 +116,12 @@ class Game < ActiveRecord::Base
   end
 
   def get_winner
+    if (!next_card? && table_even?) 
+      winner_id = calculate_winner
+      save
+    else
+      nil
+    end
      #self.winner_id ||= self.p1
      #save
      #table = Table.find self.table_id
@@ -416,5 +422,9 @@ class Game < ActiveRecord::Base
         each_contrib - p4_contrib
       end
     end
+  end
+
+  def calculate_winner
+    p1
   end
 end

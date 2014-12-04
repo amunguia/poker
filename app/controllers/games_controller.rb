@@ -81,8 +81,12 @@ class GamesController < ApplicationController
          return
        else
          winner_id = @game.get_winner
-         render :json => {:winner_id => winner_id}
-         return
+         if winner_id == nil
+           render :json => {:message => "Called get_winner prematurely."}
+         else
+           render :json => {:winner_id => winner_id}
+           return
+         end
        end
     else
        render :text => @game.to_json

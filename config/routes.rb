@@ -17,6 +17,7 @@ Poker::Application.routes.draw do
   get "get_cards" => "games#get_cards", :as => "get_cards"
   post "move" => "games#move", :as => "move"
   get "register" => "users#new", :as => "register"
+  get "table/game_id" => "tables#get_game", :as => "table_get_game"
   
   root :to => "static_pages#home"
   get "game_status" => "games#get_game", :as => "game_status"

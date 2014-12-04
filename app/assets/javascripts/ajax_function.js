@@ -101,6 +101,7 @@ function get_next_game() {
       success: function(data) {
         if (data.game_id) {
             window.GAME_ID = data.game_id;
+            window.PLAYER_POSITION = false;
             poker.passed = false;
             poker.playing = false;
         } 
