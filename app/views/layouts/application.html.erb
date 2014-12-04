@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Speed Poker</title>
+    <title>Quick Poker</title>
     <%= stylesheet_link_tag 'application', media: 'all',
                                            'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
 </head>
 <body>
-	<div class="masthead">
-		<div class="container">
-			<div class="row">
-				<div class="col-xs">BANNER SHOULD BE HERE</div>
-			</div>
-		</div>
-	</div>
-	
+    <div class="masthead">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs">BANNER SHOULD BE HERE</div>
+            </div>
+        </div>
+    </div>
+    
     <!-- Navigation -->
     <nav class="navbar navbar-inverse" role="navigation">
         <div class="container">
@@ -36,52 +36,84 @@
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav nav-text">
                     <li>
-                        <a href="#"><h3>Home</h3></a>
+                        <%= link_to "Home", home_path %>
                     </li>
                     <li>
-                        <a href="#"><h3>Play</h3></a>
+                        <%= link_to "Play", play_path %>
                     </li>
                     <li>
-                        <a href="#"><h3>Account</h3></a>
+                        <%= link_to "Account", account_path %>
                     </li>
-					<li>
-                        <a href="#"><h3>Rules</h3></a>
+                    <li>
+                        <%= link_to "Rules", rules_path %>
                     </li>
                 </ul>
+
+                <!-- logged in as -->
+                <div class="nav-login-info">
+                    <ul class="list-inline">
+                    <% if current_user %>
+                        <li>
+                            Logged in as 
+                            <b><%= link_to current_user.username, account_path %></b>
+                        </li>
+                        <li>
+                            |
+                        </li>
+                        <li>
+                            <%= link_to "Logout", log_out_path %>
+                        </li>
+                    <% else %>
+                        <li>
+                            <%= link_to "Login", log_in_path %>
+                        </li>
+                        <li>
+                            |
+                        </li>
+                        <li>
+                            <%= link_to "Register", register_path %>
+                        </li>
+                    <% end %>
+                    </ul>
+                </div>
+
             </div>
             <!-- /.navbar-collapse -->
+
         </div>
         <!-- /.container -->
     </nav>
 
     <!-- Page Content -->
     <div class="container">
-		<div class="hero-unit">
-			<div class="row">
-				<div class="col-lg-12">
+        <div class="hero-unit">
+            <div class="row">
+                <div class="col-lg-12">
 
 
 <%= yield %>
 
 
-				</div>
-			</div>
-		
-		<hr>
-		
-		<!-- Footer -->
+                </div>
+            </div>
+        
+        <hr>
+        
+        <!-- Footer -->
         <footer>
             <div class="row">
                 <div class="col-lg-12">
-                    <p>Copyright &copy; SFSU Speed Poker Project for CSC 667 2014</p>
+                    <div class="footer">
+                        <p><small>&copy; SFSU Speed Poker Project for CSC 667 2014</small></p>
+                    </div>
                 </div>
             </div>
             <!-- /.row -->
         </footer>
-		
-		</div>
+        
+        </div>
     </div>
     <!-- /.container -->
 
