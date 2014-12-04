@@ -1,4 +1,4 @@
-<h1>Game Rooms:</h1>
+<h1>Game Rooms</h1>
 
 <table>
   <thead>
@@ -11,20 +11,22 @@
 
   <tbody>
     <% @rooms.each do |room| %>
-      <tr>
-        <td><%= link_to  room.name, room %></td>
-        <td>$<%= room.minimum_bet %></td>
-        <td># of players</td>
-        <% if @admin %>
-          <td><%= link_to 'Show', room %></td>
-          <td><%= link_to 'Edit', edit_room_path(room) %></td>
-          <td><%= link_to 'Destroy', room, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% end %>
-      </tr>
+    <tr>
+      <td><%= link_to  room.name, room %></td>
+      <td>$<%= room.minimum_bet %></td>
+      <td># of players</td>
+      <% if @admin %>
+      <td><%= link_to 'Show', room %></td>
+      <td><%= link_to 'Edit', edit_room_path(room) %></td>
+      <td><%= link_to 'Destroy', room, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <% end %>
+    </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
 
+<% if @admin %>
 <%= link_to 'New Room', new_room_path %>
+<% end %>

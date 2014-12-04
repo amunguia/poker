@@ -1,8 +1,9 @@
-<h1>Welcome <%= current_user.username%></h1>
+<h1>Welcome <b><%= current_user.username%></b></h1>
 <div class="row">
 	<div class="col-sm-1">
 	</div>
-	<div class="col-sm-6">
+	<div class="col-sm-9">
+		<h2><u>Account Information</u></h2>
 		<table class="account-table">
 			<tr>
 				<td><b>Username:</b></td>
@@ -20,5 +21,29 @@
 	</div>
 </div>
 <br>
+<div class="row">
+	<div class="col-sm-1">
+	</div>
+	<div class="col-sm-9">
+		<h2><u>Game History</u></h2>
+		<table class="account-table">
+			<thead>
+				<tr>
+					<th>Table Number</th>
+					<th>Players</th>
+					<th>Outcome</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>//History goes in this table</td>
+				</tr>
+			</table>
+		</tbody>
+	</div>
+</div>
 
+
+<br>
 <%= link_to "Logout", log_out_path %>
