@@ -1,4 +1,4 @@
-<h1>Sign Up</h1>
+<h1>Register</h1>
 
 <%= form_for @user do |f| %>
   <% if @user.errors.any? %>
@@ -13,19 +13,27 @@
   <% end %>
   <p>
     <%= f.label :username %><br />
-    <%= f.text_field :username %>
+    <%= f.text_field :username, :class => "form-field"%>
   </p>
   <p>
     <%= f.label :email %><br />
-    <%= f.text_field :email %>
+    <%= f.text_field :email, :class => "form-field" %>
   </p>
   <p>
     <%= f.label :password %><br />
-    <%= f.password_field :password %>
+    <%= f.password_field :password, :class => "form-field"  %>
   </p>
   <p>
     <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation %>
+    <%= f.password_field :password_confirmation, :class => "form-field" %>
   </p>
-  <p class="button"><%= f.submit %></p>
+  <br>
+  <p>
+  <%= button_tag(type: "submit", class: "btn btn-success form-button") do%>
+      Submit
+  <% end %>
+  </p>
+
 <% end %>
+<br>
+<p>Already have an account?  <%= link_to "Login", log_in_path %></p>

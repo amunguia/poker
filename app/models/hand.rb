@@ -1,4 +1,5 @@
-ddclass Hand
+
+class Hand
   
   attr_accessor :cards, :mycards,:besthand,:combination,:bestscore
   
@@ -272,4 +273,3 @@ end
 
 
  end
-  

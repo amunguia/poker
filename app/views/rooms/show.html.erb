@@ -1,13 +1,33 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Welcome <%= @room.name  %></h1>
+<h1>Welcome to the <%= @room.name %></h1>
+<%= link_to '<< Back to Game Rooms', rooms_path %>
 
-<ul>
+<table>
+  <thead>
+    <tr>
+      <th>Table Name</th>
+      <th>Players</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+
   <% @tables.each do |t|  %>
-    <li><%= link_to "#{t.number}", t %></li> 
+  	<tr>
+  		<td>
+    	<%= link_to "table #{t.number}", t %>
+    	</td>
+    	<td>
+    </td>
   <% end %>
-</ul>
 
+  </tbody>
+</table>
 
-<%= link_to 'Edit', edit_room_path(@room) %> |
-<%= link_to 'Back', rooms_path %>
+<br>
+<%= link_to '<< Back to Game Rooms', rooms_path %>
+
+<% if @admin %>
+<%= link_to 'Edit', edit_room_path(@room) %>
+<% end %>

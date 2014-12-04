@@ -1,15 +1,23 @@
 Poker::Application.routes.draw do
   get "sessions/new"
   get "users/new"
-  
+
+  #navbar
+  get "home" => "static_pages#home", :as => "home"
+  get "play" => "rooms#index", :as => "play"
+  get "account" => "sessions#account", :as => "account"
+  get "rules" => "static_pages#rules", :as => "rules"
+
+  #login and registration
   get "log_out" => "sessions#destroy", :as => "log_out"
   get "log_in" => "sessions#new", :as => "log_in"
   get "sign_up" => "users#new", :as => "sign_up"
-  get "about" => "static_pages#about", :as => "about"
   get "logged_in" => "static_pages#logged_in", :as => "logged_in"
   post "join_game" => "games#join_game", :as => "join_game"
   get "get_cards" => "games#get_cards", :as => "get_cards"
   post "move" => "games#move", :as => "move"
+  get "register" => "users#new", :as => "register"
+  
   root :to => "static_pages#home"
   get "game_status" => "games#get_game", :as => "game_status"
   resources :users
