@@ -82,6 +82,7 @@ class GamesController < ApplicationController
        else
          winner_id = @game.get_winner
          render :json => {:winner_id => winner_id}
+         return
        end
     else
        render :text => @game.to_json
@@ -90,10 +91,17 @@ class GamesController < ApplicationController
   end
 
   def get_game
+    game = Game.find(params[:id].to_i)
+    id = game.winner_id
+    if id != nil && id > 0
+      user = User.find id
+      render :json => {:winner_id => id, :message => "The winner is #{user.username}"}
+      return
+    end
+
     if !current_user
       render :json => {"message" => "not logged in"}
     else
-      game = Game.find(params[:id].to_i)
       render :text => game.to_json
     end
   end

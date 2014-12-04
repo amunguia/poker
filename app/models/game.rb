@@ -23,6 +23,7 @@ class Game < ActiveRecord::Base
     self.message = ""
     self.min_bet = min_bet
     self.new_round = true
+    self.perm_table ||= self.table_id
     self.order = "p1,p2,p3,p4"
   end
 
@@ -115,7 +116,11 @@ class Game < ActiveRecord::Base
   end
 
   def get_winner
-    p1
+     #self.winner_id ||= self.p1
+     #save
+     #table = Table.find self.table_id
+     #table.new_game
+     #self.winner_id
   end
 
   def is_full?
@@ -204,7 +209,7 @@ class Game < ActiveRecord::Base
           self.update each_contrib: (p1_contrib + amt)
         end
         if new_round && amt > min_bet
-            new_round = false
+            self.update new_round: false
         end
         self.update p1_contrib: self.p1_contrib + amt
         self.update message: "#{current_player_obj.username} bet $#{amt}"
@@ -213,7 +218,7 @@ class Game < ActiveRecord::Base
           self.update each_contrib: (p2_contrib + amt)
         end
         if new_round && amt > min_bet
-            new_round = false
+            self.update new_round: false
         end        
         self.update p2_contrib: self.p2_contrib + amt
         self.update message: "#{current_player_obj.username} bet $#{amt}"
@@ -222,7 +227,7 @@ class Game < ActiveRecord::Base
           self.update each_contrib: (p3_contrib + amt)
         end        
         if new_round && amt > min_bet
-            new_round = false
+            self.update new_round: false
         end        
         self.update p3_contrib: self.p3_contrib + amt
         self.update message: "#{current_player_obj.username} bet $#{amt}"
@@ -231,7 +236,7 @@ class Game < ActiveRecord::Base
           self.update each_contrib: (p4_contrib + amt)
         end 
         if new_round && amt > min_bet
-            new_round = false
+            self.update new_round: false
         end        
         self.update p4_contrib: self.p4_contrib + amt  
         self.update message: "#{current_player_obj.username} bet $#{amt}"     
@@ -380,20 +385,24 @@ class Game < ActiveRecord::Base
     self.card1 = self.stream.split(",")[0]
     self.card2 = self.stream.split(",")[1]
     self.card3 = self.stream.split(",")[2]
+    self.message = "The stream is shown."
+    self.save
   end
 
   def reveal_fourth_card
     self.card4 = self.stream.split(",")[3]
+    self.message = "The turn is shown."
     self.save
   end
 
   def reveal_fifth_card
     self.card5 = self.stream.split(",")[4]
+    self.message = "The river is shown."
     self.save
   end  
 
   def get_min_bet
-    if new_round
+    if new_round 
       min_bet
     else
       player = current_player_str

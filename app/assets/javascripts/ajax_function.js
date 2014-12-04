@@ -6,7 +6,11 @@ function get_game() {
 		url:"../game_status?id="+window.GAME_ID,
 	    success: function(data) {
             console.log(data);
-	    	build_game(data);
+            if (!data.winner_id) {
+                build_game(data);
+            } else {
+                get_next_game();
+            }
             show_message(data.message);
 	    }
 	});
@@ -79,6 +83,7 @@ function move(action, amount) {
         	    build_game(game);
                 remove_player_turn_panel();
             } else {
+                $("#error-message").html(data.message);
                 console.log(data.message);
             }
             if (data.result) {
@@ -87,6 +92,19 @@ function move(action, amount) {
                 poker.error = true;
             }
         }
+    });
+}
+
+function get_next_game() {
+    $.ajax({
+      url: ""+window.TABLE_ID+"/game_id",
+      success: function(data) {
+        if (data.game_id) {
+            window.GAME_ID = data.game_id;
+            poker.passed = false;
+            poker.playing = false;
+        } 
+      }
     });
 }
 

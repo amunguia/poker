@@ -22,6 +22,7 @@ class TablesController < ApplicationController
       @table = Table.find_by_id(params[:id])
       @room_name = Room.find_by_id(@table.room_id).name 
       @table.game ||= create_game @table
+      @table_id = @table.id
       @game_id = @table.game.id
       @player_position = @table.game.is_user_in_game? current_user
     end
@@ -97,6 +98,15 @@ class TablesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to tables_url }
       format.json { head :no_content }
+    end
+  end
+
+  def get_game
+    table = Table.find params[:id].to_i
+    if (table && table.game)
+      render :json => {game_id: table.game.id}
+    else
+      render :json => {error: "Not a valid table id."}
     end
   end
 

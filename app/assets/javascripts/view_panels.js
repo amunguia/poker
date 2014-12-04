@@ -48,11 +48,16 @@ function build_join_game_panel() {
 }
 
 function build_player_turn_panel() {
-   if ($("#push-bet").length > 0) {
+    var error_message = $("#error-message").html();
+    if (error_message == undefined) {
+        error_message = "";
+    }
+    if ($("#push-bet").length > 0) {
         return; //Player is betting.
     }
 
-    var html =  '<div id="stay" class="button"><p class="button-text">STAY</p></div>';
+    var html = '<p id="error-message">'+error_message+'</p>'; 
+    html += '<div id="stay" class="button"><p class="button-text">STAY</p></div>';
     html += '<div id="bet" class="button"><p class="button-text">BET</p></div>';
     html += '<div id="fold" class="button"><p class="button-text">FOLD</p></div>';
 
@@ -79,10 +84,18 @@ function remove_player_turn_panel() {
 }
 
 function build_player_bets_panel() {
+    var error_message = $("#error-message").html();
+    if (error_message == undefined) {
+        error_message = "";
+    }
     remove_player_turn_panel();
 
     var min_bet = poker.min_bet;
-    var html = '<p>Minimum bet is $'+min_bet;
+    if (min_bet == null || min_bet == undefined || min_bet < 0) {
+        min_bet = 0;
+    }
+    var html = '<p id="error-message">'+error_message+'</p>';  
+    html += '<p>Minimum bet is $'+min_bet;
     html += '<br>Please enter bet amount: ';
     html += '<input id="bet_amt" type="text"></input></p>';
     html += '<div id="push-bet" class="button button-text action-panel">BET</div>';
