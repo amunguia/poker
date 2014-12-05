@@ -3,8 +3,26 @@ load 'hand.rb'
 class Test
 
 
-def main
+def test(array, expected)
 puts "testing -------------"
+
+
+myhand = Hand.new(array);
+myhand.best_hand
+
+myhand.printcard(myhand.besthand)
+pass = (expected==myhand.bestscore)
+puts "\n#{pass}\tscore : #{myhand.bestscore}"
+
+
+
+
+end
+
+end
+
+test = Test.new
+#loyal striaght
 cards = Array.new
 cards[0] = Card.new('10','H');
 cards[1] = Card.new('11','H');
@@ -14,19 +32,115 @@ cards[4] = Card.new('1','H');
 cards[5] = Card.new('4','S');
 cards[6] = Card.new('4','S');
 
+test.test(cards, 10.26)
+#flush
+cards[0] = Card.new('9','H');
+cards[1] = Card.new('8','H');
+cards[2] = Card.new('12','H');
+cards[3] = Card.new('13','H');
+cards[4] = Card.new('1','H');
+cards[5] = Card.new('4','S');
+cards[6] = Card.new('4','S');
 
-myhand = Hand.new(cards);
-myhand.best_hand
+test.test(cards, 7.14)
+#striaght
+cards[0] = Card.new('1','D');
+cards[1] = Card.new('2','H');
+cards[2] = Card.new('3','D');
+cards[3] = Card.new('4','H');
+cards[4] = Card.new('5','H');
+cards[5] = Card.new('4','S');
+cards[6] = Card.new('4','S');
 
-myhand.printcard(myhand.besthand)
-puts "score : #{myhand.bestscore}"
+test.test(cards, 6.14)
+
+#three kind
+cards[0] = Card.new(' 1','D');
+cards[1] = Card.new('1','H');
+cards[2] = Card.new('1','D');
+cards[3] = Card.new('3','H');
+cards[4] = Card.new('2','H');
+cards[5] = Card.new('9','S');
+cards[6] = Card.new('8','S');
+
+test.test(cards, 5.14)
+
+# two pairs
+cards[0] = Card.new('2','D');
+cards[1] = Card.new('2','H');
+cards[2] = Card.new('3','D');
+cards[3] = Card.new('3','H');
+cards[4] = Card.new('5','H');
+cards[5] = Card.new('4','S');
+cards[6] = Card.new('4','S');
+
+test.test(cards, 4.09)
 
 
 
 
-end
+#pair
+cards[0] = Card.new('2','D');
+cards[1] = Card.new('1','H');
+cards[2] = Card.new('3','D');
+cards[3] = Card.new('3','H');
+cards[4] = Card.new('7','H');
+cards[5] = Card.new('4','S');
+cards[6] = Card.new('4','S');
 
- 
+test.test(cards, 3.18)
 
-end
-Test.new.main
+
+#full house
+cards[0] = Card.new('2','D');
+cards[1] = Card.new('2','H');
+cards[2] = Card.new('1','D');
+cards[3] = Card.new('1','H');
+cards[4] = Card.new('1','H');
+cards[5] = Card.new('4','S');
+cards[6] = Card.new('4','S');
+
+test.test(cards, 8.14)
+
+#flush
+cards[0] = Card.new('4','H');
+cards[1] = Card.new('8','H');
+cards[2] = Card.new('3','D');
+cards[3] = Card.new('2','H');
+cards[4] = Card.new('9','H');
+cards[5] = Card.new('13','S');
+cards[6] = Card.new('1','H');
+
+test.test(cards, 7.14)
+#pair
+cards[0] = Card.new('2','H');
+cards[1] = Card.new('2','H');
+cards[2] = Card.new('1','D');
+cards[3] = Card.new('3','H');
+cards[4] = Card.new('6','S');
+cards[5] = Card.new('7','S');
+cards[6] = Card.new('2','D');
+
+test.test(cards, 3.16)
+
+#high card
+cards[0] = Card.new('1','H');
+cards[1] = Card.new('13','H');
+cards[2] = Card.new('2','D');
+cards[3] = Card.new('5','H');
+cards[4] = Card.new('3','S');
+cards[5] = Card.new('6','S');
+cards[6] = Card.new('8','D');
+
+test.test(cards, 0.14)
+
+
+
+
+
+
+
+
+
+
+
