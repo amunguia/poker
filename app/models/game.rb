@@ -101,12 +101,12 @@ class Game < ActiveRecord::Base
   end
 
   def current_player_folds
+    self.message = "#{current_player_obj.username} folds."
     array = self.order.split(",")
     array = array.slice(1, array.length - 1)
     self.order = array.join(",")
     set_current_player array[0]
     self.players_left -= 1
-    self.message = "#{current_player_obj.username} folds."
     self.save
     array[0]
   end
@@ -117,16 +117,11 @@ class Game < ActiveRecord::Base
 
   def get_winner
     if (!next_card? && table_even?) 
-      winner_id = calculate_winner
-      save
+      self.winner_id = calculate_winner
+      self.save
     else
       nil
     end
-     #self.winner_id ||= self.p1
-     #save
-     #table = Table.find self.table_id
-     #table.new_game
-     #self.winner_id
   end
 
   def is_full?
@@ -209,6 +204,12 @@ class Game < ActiveRecord::Base
       end
     end
 
+    if amt == 0
+      message = "#{current_player_obj.username} stays."
+    else
+      message = "#{current_player_obj.username} bet $#{amt}"
+    end
+
     if current_player_obj.deduct(amt)
       if player_str.eql? "p1"
         if (p1_contrib + amt) > each_contrib
@@ -218,7 +219,7 @@ class Game < ActiveRecord::Base
             self.update new_round: false
         end
         self.update p1_contrib: self.p1_contrib + amt
-        self.update message: "#{current_player_obj.username} bet $#{amt}"
+        self.update message: message
       elsif player_str.eql? "p2"
        if (p2_contrib + amt) > each_contrib
           self.update each_contrib: (p2_contrib + amt)
@@ -227,7 +228,7 @@ class Game < ActiveRecord::Base
             self.update new_round: false
         end        
         self.update p2_contrib: self.p2_contrib + amt
-        self.update message: "#{current_player_obj.username} bet $#{amt}"
+        self.update message: message
       elsif player_str.eql? "p3"
         if (p3_contrib + amt) > each_contrib
           self.update each_contrib: (p3_contrib + amt)
@@ -236,7 +237,7 @@ class Game < ActiveRecord::Base
             self.update new_round: false
         end        
         self.update p3_contrib: self.p3_contrib + amt
-        self.update message: "#{current_player_obj.username} bet $#{amt}"
+        self.update message: message
       else
         if (p4_contrib + amt) > each_contrib
           self.update each_contrib: (p4_contrib + amt)
@@ -245,7 +246,7 @@ class Game < ActiveRecord::Base
             self.update new_round: false
         end        
         self.update p4_contrib: self.p4_contrib + amt  
-        self.update message: "#{current_player_obj.username} bet $#{amt}"     
+        self.update message: message
       end
     else
       false
@@ -425,6 +426,6 @@ class Game < ActiveRecord::Base
   end
 
   def calculate_winner
-    p1
+    self.p1
   end
 end

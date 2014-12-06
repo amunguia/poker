@@ -104,6 +104,10 @@ function get_next_game() {
             window.PLAYER_POSITION = false;
             poker.passed = false;
             poker.playing = false;
+            poker.your_card1 = "../cards/card_back.png";
+            poker.your_card2 = "../cards/card_back.png";
+            $("#mycard1").attr("src", "../cards/card_back.png");
+            $("#mycard2").attr("src", "../cards/card_back.png");
         } 
       }
     });

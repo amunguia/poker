@@ -1,3 +1,9 @@
+<ul id="games-in-progress">
+  <% @games.each do |g| %>
+    <li><%=link_to "Go To Game!", table_path(g.table_id) %></li>
+  <% end %>
+</ul>
+
 <h1>Game Rooms</h1>
 
 <table>

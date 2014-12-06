@@ -83,9 +83,14 @@ class GamesController < ApplicationController
          winner_id = @game.get_winner
          if winner_id == nil
            render :json => {:message => "Called get_winner prematurely."}
-         else
-           render :json => {:winner_id => winner_id}
            return
+         else
+            table = Table.find @game.table_id
+            if table.get_game.id == @game.id
+              table.new_game # initiate a new game only once.
+            end
+            render :json => {:winner_id => winner_id}
+            return
          end
        end
     else

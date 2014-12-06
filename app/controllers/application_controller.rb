@@ -16,28 +16,27 @@ class ApplicationController < ActionController::Base
   def current_games
     @games = []
     if current_user != nil
-      @games<< extract_games_in_progress(
-        Game.where(p1: current_user.id))
-      @games<< extract_games_in_progress(
-        Game.where(p2: current_user.id))
-      @games<< extract_games_in_progress(
-        Game.where(p3: current_user.id))
-      @games<< extract_games_in_progress(
-        Game.where(p4: current_user.id))
+      extract_games_in_progress(
+        Game.where(p1: current_user.id), @games)
+      extract_games_in_progress(
+        Game.where(p2: current_user.id),  @games)
+      extract_games_in_progress(
+        Game.where(p3: current_user.id), @games)
+      extract_games_in_progress(
+        Game.where(p4: current_user.id), @games)
     end
     @games
   end
 
   private
 
-  def extract_games_in_progress(games)
-    games = []
+  def extract_games_in_progress(games, array)
     games.each do |g|
-      if g.winner_id == nil
-        games<< g
+      if g.winner_id == nil &&
+         g.table_id != nil
+        array<< g
       end
     end
-    games
   end
 
 end
