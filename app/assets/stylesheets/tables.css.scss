@@ -52,13 +52,19 @@
   height: 200px;
 }
 
+#stay {
+  background-color: blue;
+  height: 50px;
+}
+
 #bet {
-  margin-top: 10px;
   background-color: red;
+  height: 50px;
 }
 
 #fold {
   background-color: yellow;
+  height: 50px;
 }
 
 .button {
@@ -70,7 +76,51 @@
 }
 
 .button-text {
-  padding-top: 20px;
+  padding-top: 10px;
   color: white;
+}
+
+.join-observer-row {
+  position: relative;
+}
+
+.join-button {
+   background-color: blue;
+   position: relative;
+   top: 35%;
+}
+
+.observe-button {
+  background-color: green;
+  position: relative;
+  top: 35%;
+}
+
+.action-panel {
+  color: black;
+}
+
+#message {
+  color: red;
+  text-align: center;
+  position: relative;
+  top: 35%;
+  text: 3em;
+}
+
+#push-bet {
+  background-color: red;
+  height: 50px;
+  margin-bottom: 15px
+}
+
+#go-back {
+  background-color: yellow;
+  height: 50px;
+}
+
+#message-row {
+  height: 50px;
+  background-color: white;
 }
 

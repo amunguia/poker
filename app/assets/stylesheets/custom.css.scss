@@ -2,14 +2,21 @@
 @import "bootstrap";
 
 
-.masthead{
-	color:#222;
-    background-image:url(image-path('banner_cards.jpg'));
-    background-repeat:no-repeat;
-	height: 200px;
+.masthead {
+  color:#222;
+  background-image:url(image-path('banner_cards.jpg'));
+  background-repeat:no-repeat;
+  height: 200px;
 }
  
+.nav-text {
+  font-size: 200%;
+}
 
+.nav-login-info {
+  float: right;
+  padding: 10px;
+}
 
 
 .hero-unit {
@@ -25,11 +32,47 @@
           border-radius: 6px;
 }
 
+.btn-form {
+  background-color: #222;
+  border-color: #9d9d9d;
+}
+
+.account-table, td, th {
+  padding: 5px;
+  padding-right: 10px;
+}
+
+.form-field {
+  color: #000000;
+  width: 300px;
+}
+
+.form-button {
+  width: 300px;
+  color: #222;
+  font-weight: bold;
+}
+
+.login-box {
+  background-color: #1a1a1a;
+  padding-right: 25px;
+  padding-left: 25px;
+}
+
+.login-button {
+  color: #222;
+  font-size: 120%;
+  font-weight: bold;
+}
+
+.footer {
+  float: right;
+}
+
 
 body {
-	color: #9d9d9d;		
-	background-image: url(image-path('green_bg.jpg'));
-	background-position: center;
-		
+  color: #9d9d9d;   
+  background-image: url(image-path('green_bg.jpg'));
+  background-position: center;
 }
 

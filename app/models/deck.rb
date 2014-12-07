@@ -16,7 +16,7 @@ class Deck
     @@card_string<< sa.to_s
     @@card_hash[sa.to_s] = sa
 
-    ca = Card.new 14s, "C"
+    ca = Card.new 14, "C"
     @@card_string<< ca.to_s
     @@card_hash[ca.to_s] = ca
 
@@ -236,7 +236,6 @@ class Deck
 end
 
 Deck.init
-
 
 
 

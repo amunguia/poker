@@ -1,0 +1,49 @@
+<h1>Welcome <b><%= current_user.username%></b></h1>
+<div class="row">
+	<div class="col-sm-1">
+	</div>
+	<div class="col-sm-9">
+		<h2><u>Account Information</u></h2>
+		<table class="account-table">
+			<tr>
+				<td><b>Username:</b></td>
+				<td><%= current_user.username %></td>
+			</tr>
+			<tr>
+				<td><b>E-mail:</b></td>
+				<td><%= current_user.email %></td>
+			</tr>
+			<tr>
+				<td><b>Balance:</b></td>
+				<td>$<%= current_user.balance %></td>
+			</tr>
+		</table>
+	</div>
+</div>
+<br>
+<div class="row">
+	<div class="col-sm-1">
+	</div>
+	<div class="col-sm-9">
+		<h2><u>Game History</u></h2>
+		<table class="account-table">
+			<thead>
+				<tr>
+					<th>Table Number</th>
+					<th>Players</th>
+					<th>Outcome</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>//History goes in this table</td>
+				</tr>
+			</table>
+		</tbody>
+	</div>
+</div>
+
+
+<br>
+<%= link_to "Logout", log_out_path %>

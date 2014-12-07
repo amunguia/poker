@@ -26,7 +26,11 @@ class Card
   end
 
   def to_url
-    Rails.root.join('app', 'assets', 'images', 'cards', "#{@number}#{@suit}.png")    
+    File.join('assets', 'cards', "#{@number}#{@suit}.png")    
+  end
+
+  def self.url_for card_code
+    File.join('assets', 'cards', card_code+'.png')
   end
   def showcard
    print " #{number} #{suit} ";
