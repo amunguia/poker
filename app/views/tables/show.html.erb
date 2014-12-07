@@ -1,5 +1,5 @@
 <p id="notice"><%= notice %></p>
-<h1> You are in room <%= @room_name %> on table <%= @table.number %></h1>
+<h1> You are in the <%= @room_name %> on table <%= @table.number %></h1>
 <div id="game-display" class="game-frame">
   <div id="opponents-row" class="row">
     <div id="first-player" class="opponent op-left col-sm-4">
@@ -30,22 +30,22 @@
       </div>
     </div>
   </div>
-  <div id="game-row" class="row join-observer-row">
-  </div>
   <div id="message-row" class="row">
     <div class="col-sm-12">
       <p id="message"></p>
     </div> 
   </div> 
+  <div id="game-row" class="row join-observer-row">
+  </div>
   <div id="players-row" class="row">
-    <div class="col-sm-3">
+    <div class="col-sm-2">
     </div>
     <div class="col-sm-4" id="my-cards">
       <%= image_tag "cards/card_back.png", :class => "card-img", :id => "mycard1" %>
       <%= image_tag "cards/card_back.png", :class => "card-img", :id => "mycard2" %>
       <p id="my-p"></p>
     </div>
-    <div id="action-console" class="col-sm-4">     
+    <div id="action-console" class="col-sm-6">     
     </div> 
   </div>
 </div>
