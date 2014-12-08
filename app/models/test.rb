@@ -147,6 +147,28 @@ cards[6] = Card.new('8','D');
 
 test.test(cards, 8.13)
 
+cards = Array.new
+cards[0] = Card.new('13','S');
+cards[1] = Card.new('10','S');
+cards[2] = Card.new('6','H');
+cards[3] = Card.new('2','S');
+cards[4] = Card.new('9','D');
+cards[5] = Card.new('14','C');
+cards[6] = Card.new('10','C');
+
+test.test(cards, 10.26)
+
+cards = Array.new
+cards[0] = Card.new('9','S');
+cards[1] = Card.new('14','S');
+cards[2] = Card.new('6','H');
+cards[3] = Card.new('2','S');
+cards[4] = Card.new('9','D');
+cards[5] = Card.new('14','C');
+cards[6] = Card.new('10','C');
+
+test.test(cards, 10.26)
+
 
 
 
