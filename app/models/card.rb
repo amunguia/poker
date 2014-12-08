@@ -37,11 +37,11 @@ class Card
   end
 
   def to_url
-    File.join('assets', 'cards', "#{@number}#{@suit}.png")    
+    File.join('cards', "#{@number}#{@suit}.png")    
   end
 
   def self.url_for card_code
-    File.join('assets', 'cards', card_code+'.png')
+    File.join('cards', card_code+'.png')
   end
   def showcard
    print " #{number} #{suit} ";
