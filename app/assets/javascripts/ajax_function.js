@@ -27,6 +27,7 @@ function join_game() {
         success: function(data) {
             if (data.result) {
                 window.PLAYER_POSITION = data.player;
+                poker.playing = true;
                 poker.error = false;
             } else {
                 poker.error = true;
@@ -108,6 +109,10 @@ function get_next_game() {
             poker.your_card2 = undefined;
             $("#mycard1").attr("src", "../cards/card_back.png");
             $("#mycard2").attr("src", "../cards/card_back.png");
+            $(".p1").removeClass("p1");
+            $(".p2").removeClass("p2");
+            $(".p3").removeClass("p3");
+            $(".p4").removeClass("p4");
             window.CARD_INTERVAL = setInterval(if_needed_get_cards, 1000);
         } 
       }

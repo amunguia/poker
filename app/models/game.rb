@@ -359,7 +359,7 @@ class Game < ActiveRecord::Base
       users["p4"] = {:username => "----", :balance => "----"}
     end
  
-    state[:started] = is_full?
+    state[:started] = (is_full? && winner_id == nil)
     state[:users] = users
     state[:current_player] = current_player_str
     state[:message] = message

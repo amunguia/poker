@@ -1,5 +1,5 @@
 function show_game_started(started) {
-	if (started || poker.passed || poker.playing) {
+	if (started || poker.playing) {
         build_game_center_panel();
 	} else {
         build_join_game_panel();

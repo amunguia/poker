@@ -8,7 +8,7 @@ function build_game(game) {
 	update_pot(game.pot_bal);
 	show_message(game.message);
 	$(".turn-ind").removeClass("turn-ind");
-	$(game.current_player).addClass("turn-ind");
+	$("."+game.current_player).addClass("turn-ind");
 	poker.min_bet = game.min_bet
 
 	if (game.current_player == window.PLAYER_POSITION &&
@@ -56,7 +56,7 @@ function update_players(users) {
 	} else {
 		string = users["p1"].username+": $"+users["p1"].balance;
 		$(".opp-p-"+i).text(string);
-		$(".opp-p-"+i).("p1");
+		$(".opp-p-"+i).addClass("p1");
 		i++;
 	}
 
@@ -66,7 +66,7 @@ function update_players(users) {
 	} else {
 		string = users["p2"].username+": $"+users["p2"].balance;
 		$(".opp-p-"+i).text(string);
-		$(".opp-i-"+i).addClass("p2");
+		$(".opp-p-"+i).addClass("p2");
 		i++;
 	}
 
