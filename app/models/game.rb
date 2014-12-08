@@ -118,6 +118,13 @@ class Game < ActiveRecord::Base
   def get_winner
     if (!next_card? && table_even?) 
       self.winner_id = calculate_winner
+      if (self.each_contrib > 0) 
+        user = User.find self.winner_id
+        user.balance += (self.p1_contrib + 
+          self.p2_contrib + self.p3_contrib + self.p4_contrib)
+        user.save
+        self.each_contrib = 0
+      end
       self.save
     else
       nil
@@ -182,6 +189,23 @@ class Game < ActiveRecord::Base
 
   def one_player_left?
     return self.order.split(",").length == 1
+  end
+
+  def player_antes(player) 
+    if player.deduct(min_bet)
+      if player.id == p1
+        self.update(p1_contrib: min_bet)
+      elsif player.id == p2
+        self.update(p2_contrib: min_bet)
+      elsif player.id == p3
+        self.update(p3_contrib: min_bet)
+      elsif player.id == p4
+        self.update(p4_contrib: min_bet)
+      end
+      true
+    else
+      false
+    end
   end
 
   def player_bets(amt)
@@ -426,6 +450,59 @@ class Game < ActiveRecord::Base
   end
 
   def calculate_winner
-    self.p1
+
+    winning_score = -1
+    winner = ""
+    hands = hands_for_players
+    hands.each_key do |p|
+      hand = hands[p]
+      if hand.bestscore > winning_score
+        winner = p
+        winning_score = hand.bestscore
+      end
+    end
+
+    if winner.eql? "p1"
+      p1
+    elsif winner.eql? "p2"
+      p2
+    elsif winner.eql? "p3"
+      p3
+    else
+      p4
+    end
   end
+
+  def hands_for_players
+    hands = {}
+    self.order.split(",").each do |player|
+      hands[player] = Hand.new(card_array_for(player))
+      hands[player].best_hand
+    end
+    hands
+  end
+
+  def card_array_for(player)
+    if player.eql? "p1"
+      array = self.p1_cards.split ","
+    elsif player.eql? "p2"
+      array = self.p2_cards.split ","
+    elsif player.eql? "p3"
+      array = self.p3_cards.split "," 
+    else
+      array = self.p4_cards.split ","
+    end
+
+    cards = []
+    append_as_cards(self.stream.split(","), 
+      append_as_cards(array, cards))
+  end
+
+  def append_as_cards(string_array, card_array)
+    string_array.each do |s|
+      card_array<< Card.for_string(s)
+    end
+    card_array
+  end
+
 end

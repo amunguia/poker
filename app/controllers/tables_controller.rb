@@ -110,6 +110,22 @@ class TablesController < ApplicationController
     end
   end
 
+  def get_chat_index
+    if !current_user
+      render :json => {message: "You must be logged in.", success: false}
+      return
+    end
+
+    table = Table.find(params[:id].to_i)
+    index = 0
+    table.chat.each do |c|
+      if c.id > index
+        index = c.id
+      end
+    end
+    render :json => {index: index, success: true}
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_table

@@ -267,6 +267,7 @@ end
      cards.each do |item|
 	print "#{item.showcard}"
      end
+     print ""
  end 
 
 

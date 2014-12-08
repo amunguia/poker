@@ -2,7 +2,8 @@ class Table < ActiveRecord::Base
 
   @@mutex = Mutex.new
 
-  has_many :users
+  has_many :user
+  has_many :chat
   belongs_to :room
   has_one :game
 

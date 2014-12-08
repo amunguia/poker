@@ -104,14 +104,39 @@ function get_next_game() {
             window.PLAYER_POSITION = false;
             poker.passed = false;
             poker.playing = false;
-            poker.your_card1 = "../cards/card_back.png";
-            poker.your_card2 = "../cards/card_back.png";
+            poker.your_card1 = undefined;
+            poker.your_card2 = undefined;
             $("#mycard1").attr("src", "../cards/card_back.png");
             $("#mycard2").attr("src", "../cards/card_back.png");
+            window.CARD_INTERVAL = setInterval(if_needed_get_cards, 1000);
         } 
       }
     });
 }
+
+function get_chat_index() {
+    $.ajax({
+      url: ""+window.TABLE_ID+"/chat_index",
+      success: function(data) {
+        if (data.success) {
+            window.CHAT_INDEX = data.index;
+            setInterval(get_chats, 1000);
+        }
+      }
+    });
+}
+
+function get_chats() {
+    $.ajax({
+      url: "../../chats/"+window.TABLE_ID+"/"+window.CHAT_INDEX,
+      success: function(data) {
+        if (data.length > 0) {
+            update_chat(data);
+        }    
+      }
+    });
+}
+
 
 function stay() {
     console.log("stay pressed.");
