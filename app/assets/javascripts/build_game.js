@@ -7,6 +7,8 @@ function build_game(game) {
 	update_cards(game);
 	update_pot(game.pot_bal);
 	show_message(game.message);
+	$(".turn-ind").removeClass("turn-ind");
+	$(game.current_player).addClass("turn-ind");
 	poker.min_bet = game.min_bet
 
 	if (game.current_player == window.PLAYER_POSITION &&
@@ -43,44 +45,54 @@ function update_cards(game) {
 function update_players(users) {
 	poker.players = users;
 	var pos = window.PLAYER_POSITION;
+	var player_number = "";
 	var player;
 	var string;
 
 	var i = 1;
 	if (pos === "p1") {
         player = users["p1"];
+        player_number = "p1";
 	} else {
 		string = users["p1"].username+": $"+users["p1"].balance;
 		$(".opp-p-"+i).text(string);
+		$(".opp-p-"+i).("p1");
 		i++;
 	}
 
 	if (pos === "p2") {
 		player = users["p2"];
+		player_number = "p2";
 	} else {
 		string = users["p2"].username+": $"+users["p2"].balance;
 		$(".opp-p-"+i).text(string);
+		$(".opp-i-"+i).addClass("p2");
 		i++;
 	}
 
 	if (pos ===  "p3") {	
 		player = users["p3"];
+		player_number = "p3";
 	} else {
 		string = users["p3"].username+": $"+users["p3"].balance;
 		$(".opp-p-"+i).text(string);
+		$(".opp-p-"+i).addClass("p3");
 		i++;
 	}	
 
     if (pos === "p4" || i > 3) {	
 		player = users["p4"];
+		player_number = "p4";
 	} else {
 		string = users["p4"].username+": $"+users["p4"].balance;
 		$(".opp-p-"+i).text(string);
+		$(".opp-p-"+i).addClass("p4");
 		i++;
 	}
 
 	string = player.username+": $"+player.balance;
 	$("#my-p").text(string);
+	$("#my-p").addClass(player_number);
 }
 
 function update_pot(pot) {
