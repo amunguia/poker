@@ -12,11 +12,11 @@ function build_game_center_panel() {
 	}
 
     var html = '<div class="col-sm-2"></div><div id="stream-panel" class="col-sm-6">';
-    html += '<image src="../assets/cards/card_back.png" class="card-img" id="card1">';
-    html += '<image src="../assets/cards/card_back.png" class="card-img" id="card2">';
-    html += '<image src="../assets/cards/card_back.png" class="card-img" id="card3">';
-    html += '<image src="../assets/cards/card_back.png" class="card-img" id="card4">';
-    html += '<image src="../assets/cards/card_back.png" class="card-img" id="card5">';
+    html += '<image src="../cards/card_back.png" class="card-img" id="card1">';
+    html += '<image src="../cards/card_back.png" class="card-img" id="card2">';
+    html += '<image src="../cards/card_back.png" class="card-img" id="card3">';
+    html += '<image src="../cards/card_back.png" class="card-img" id="card4">';
+    html += '<image src="../cards/card_back.png" class="card-img" id="card5">';
     html += '</div><div id="pot-status" class="col-sm-2"><p id="pot-balance">$0</p></div>';
     $("#game-row").html(html);
 }
