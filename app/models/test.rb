@@ -136,7 +136,16 @@ test.test(cards, 0.14)
 
 
 
+#full house
+cards[0] = Card.new('13','H');
+cards[1] = Card.new('13','H');
+cards[2] = Card.new('13','D');
+cards[3] = Card.new('5','H');
+cards[4] = Card.new('1','S');
+cards[5] = Card.new('1','S');
+cards[6] = Card.new('8','D');
 
+test.test(cards, 8.13)
 
 
 

@@ -285,6 +285,7 @@ class Game < ActiveRecord::Base
     true
   end
 
+
   def valid_player(user)
     user.id == p1 || user.id == p2 || user.id == p3 || user.id == p4
   end

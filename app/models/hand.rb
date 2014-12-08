@@ -114,7 +114,7 @@ def full_house(set)
     if(second ==1 )
       second = 14
     end 
-    return 7 +  second / 100.0
+    return 8 +  second / 100.0
   end
   if(i == 3 && k == 2)
     if(first == 1)

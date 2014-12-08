@@ -6,7 +6,6 @@ class RoomsController < ApplicationController
   def index
     if current_user
       @rooms = Room.all
-
       @admin = current_user.user_level == 0
     else
       render :file => "#{Rails.root}/public/401.html", :status => :unauthorized
