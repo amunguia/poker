@@ -21,7 +21,7 @@ class SessionsController < ApplicationController
   #do this for rooms index controller as well?
   def account
     if session[:user_id] == nil
-      redirect_to log_in_path, notice: "Must Login too see account."
+      redirect_to log_in_path, notice: "Must Login to see Account"
     end
   end
 

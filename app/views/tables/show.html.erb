@@ -50,19 +50,16 @@
   </div>
 </div>
 <br>
-<br>
-<br>
-<br>
-<div id="chat-box">
-  <div id="chats">
-    <ul id="chat-list">
+<div id="chat-box" class="chat-frame">
+  <div id="chats" class="chats">
+    <ul id="chat-list" class="chat-list">
     </ul>
   </div>
-  <div>
+  <div class="chat-input">
     <form action="../chat/new">
-      <input id="chat-message" type="text" name="message"></input>
+      <input id="chat-submit" class="btn-send-chat" type="submit" value="Submit"></input>
+      <input id="chat-message" class="input-box" type="text" name="message"></input>
       <input id="chat-table-id" type="hidden" name="table_id" value=<%= "#{@table_id}" %>></input>
-      <input id="chat-submit" type="submit" value="Submit"></input>
     </form>
   </div>
 </div>

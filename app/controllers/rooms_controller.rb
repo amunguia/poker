@@ -11,7 +11,7 @@ class RoomsController < ApplicationController
 
       @admin = current_user.user_level == 0
     else
-      render :file => "#{Rails.root}/public/401.html", :status => :unauthorized
+      redirect_to log_in_path, notice: "Must Login to Play"
     end
   end
 
@@ -22,7 +22,7 @@ class RoomsController < ApplicationController
       @tables = Table.find_all_by_room_id(params[:id])
       puts @tables
     else
-      render :file => "public/403.html", :status => :unauthorized
+      redirect_to log_in_path, notice: "Must Login to Play"
       return
     end
   end
