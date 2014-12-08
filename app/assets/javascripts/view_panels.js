@@ -27,9 +27,13 @@ function build_join_game_panel() {
 	}
 
 	if (poker.passed == false) {
-        var html = '<div class="col-sm-2"></div><div id="join-panel" class="col-sm-3 button button-text join-button">';
-        html += 'JOIN</div><div id="observe-panel" class="col-sm-3 button button-text observe-button">WATCH</div>';
-        html += '<div class="col-sm-2">';
+        var html = '<div class="join-observer-box">';
+        html += '<table class="join-observer-table"><tr><td>';
+        html += '<button type="button" id="join-panel" class="btn btn-danger join-btn btn-lrg">JOIN</button>';
+        html += '</td><td>';
+        html += '<button type="button" id="observe-panel" class="btn btn-primary observe-btn btn-lrg">WATCH</button>';
+        html += '</table></tr></td>';
+        html += '</div>';
         $("#game-row").html(html);
 
         $("#join-panel").on('click', function(event) {
@@ -57,9 +61,9 @@ function build_player_turn_panel() {
     }
 
     var html = '<p id="error-message">'+error_message+'</p>'; 
-    html += '<div id="stay" class="button"><p class="button-text">STAY</p></div>';
-    html += '<div id="bet" class="button"><p class="button-text">BET</p></div>';
-    html += '<div id="fold" class="button"><p class="button-text">FOLD</p></div>';
+    html += '<button id="stay" class="btn btn-primary button">CALL</button><br>';
+    html += '<button id="bet" class="btn btn-danger button">BET</button><br>';
+    html += '<button id="fold" class="btn btn-warning button">FOLD</button>';
 
     $("#action-console").html(html);
 
@@ -98,8 +102,8 @@ function build_player_bets_panel() {
     html += '<p>Minimum bet is $'+min_bet;
     html += '<br>Please enter bet amount: ';
     html += '<input id="bet_amt" type="text"></input></p>';
-    html += '<div id="push-bet" class="button button-text action-panel">BET</div>';
-    html += '<div id="go-back" class="button button-text action-panel">BACK</div>';
+    html += '<button id="push-bet" class="btn btn-danger button">BET</button><br>';
+    html += '<button id="go-back" class="btn btn-primary button">BACK</button>';
 
     $("#action-console").html(html);
 
