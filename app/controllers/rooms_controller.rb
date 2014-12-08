@@ -6,6 +6,7 @@ class RoomsController < ApplicationController
   def index
     if current_user
       @rooms = Room.all
+
       @games = current_games
 
       @admin = current_user.user_level == 0
