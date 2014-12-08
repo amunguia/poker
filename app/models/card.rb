@@ -9,6 +9,17 @@ class Card
     @suit = suit
   end
 
+  def self.for_string(string) #10C
+    if string.length == 3
+      num = string.slice(0,2)
+      suit = string.slice(2,1)
+    else
+      num = string.slice(0,1)
+      suit = string.slice(1,1)
+    end
+    Card.new num, suit
+  end
+
   def to_s
     "#{@number}#{@suit}"
   end

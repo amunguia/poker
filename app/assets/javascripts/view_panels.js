@@ -118,3 +118,14 @@ function build_player_bets_panel() {
         build_player_turn_panel();
     });
 }
+
+
+function update_chat(chats) {
+    for (var i = 0; i < chats.length; i++) {
+        var chat = chats[i];
+        if (chat.index > window.CHAT_INDEX) {
+            window.CHAT_INDEX = chat.index;
+        }
+        $("#chat-list").append("<li>"+chat.username+": "+chat.message+"</li>")
+    }
+}

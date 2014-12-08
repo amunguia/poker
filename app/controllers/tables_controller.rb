@@ -103,11 +103,27 @@ class TablesController < ApplicationController
 
   def get_game
     table = Table.find params[:id].to_i
-    if (table && table.game)
-      render :json => {game_id: table.game.id}
+    if table
+      render :json => {game_id: table.get_game.id}
     else
       render :json => {error: "Not a valid table id."}
     end
+  end
+
+  def get_chat_index
+    if !current_user
+      render :json => {message: "You must be logged in.", success: false}
+      return
+    end
+
+    table = Table.find(params[:id].to_i)
+    index = 0
+    table.chat.each do |c|
+      if c.id > index
+        index = c.id
+      end
+    end
+    render :json => {index: index, success: true}
   end
 
   private

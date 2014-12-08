@@ -16,10 +16,12 @@ class GamesController < ApplicationController
     else
       #Check user has min balance
       @game = Game.find(params[:id].to_i)
-      if @game
+      if @game && current_user.balance > @game.min_bet
         player = @game.add_player current_user.id
         if player
-          render :json => {:message => "Joined game.", :result => true, :player => player}
+          if @game.player_antes current_user
+            render :json => {:message => "Joined game.", :result => true, :player => player}
+          end
         else
           render :json => {:message => "Could not join game", :result => false}
         end
@@ -81,8 +83,17 @@ class GamesController < ApplicationController
          return
        else
          winner_id = @game.get_winner
-         render :json => {:winner_id => winner_id}
-         return
+         if winner_id == nil
+           render :json => {:message => "Called get_winner prematurely."}
+           return
+         else
+            table = Table.find @game.table_id
+            if table.get_game.id == @game.id
+              table.new_game # initiate a new game only once.
+            end
+            render :json => {:winner_id => winner_id}
+            return
+         end
        end
     else
        render :text => @game.to_json

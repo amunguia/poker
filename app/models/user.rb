@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   before_save :encrypt_password
   before_save :initial_balance
   before_save :set_level
+  has_many :chat
   
   validates_confirmation_of :password
   validates_presence_of :password, :on => :create

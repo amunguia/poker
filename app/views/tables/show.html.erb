@@ -49,6 +49,23 @@
     </div> 
   </div>
 </div>
+<br>
+<br>
+<br>
+<br>
+<div id="chat-box">
+  <div id="chats">
+    <ul id="chat-list">
+    </ul>
+  </div>
+  <div>
+    <form action="../chat/new">
+      <input id="chat-message" type="text" name="message"></input>
+      <input id="chat-table-id" type="hidden" name="table_id" value=<%= "#{@table_id}" %>></input>
+      <input id="chat-submit" type="submit" value="Submit"></input>
+    </form>
+  </div>
+</div>
 <%= javascript_tag "var AUTH_TOKEN = '#{form_authenticity_token}'; var GAME_ID = '#{@game_id}'; var TABLE_ID = '#{@table_id}'" %>
 <% if @player_position %>
   <%= javascript_tag "var PLAYER_POSITION = '#{@player_position}'"; %>

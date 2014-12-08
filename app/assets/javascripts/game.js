@@ -41,18 +41,38 @@ var poker = {
 $(document).ready(function() {
     setInterval(get_game, 1000);
     window.CARD_INTERVAL = setInterval(if_needed_get_cards, 1000);
+    get_chat_index();
+
 
     if (window.PLAYER_POSITION) {
         poker.playing = true;
     }
+
+    $("#chat-submit").click(function(event) {
+      event.preventDefault();
+      console.log("Here.");
+      $.ajax({
+        url: "../../chats/new",
+        type: "POST",
+        data: {
+            message: $("#chat-message").val(),
+            table_id: $("#chat-table-id").val()
+        }
+      });
+      $("#chat-message").val("");
+    });
 });
 
 function show_message(message) {
-    //if (poker.error) {
-    //    return;
-    //}
-    console.log("message: "+message);
+    if (message == undefined || message.length < 1) {
+        return;
+    }
     $("#message").html(message);
+    if (message.substring(0,13) == "The winner is") {
+        window.WINNER_HOLD = 10;
+    }
+
+
 }
 
 function if_needed_get_cards() {
