@@ -16,7 +16,8 @@
   <% @tables.each do |t|  %>
   	<tr>
   		<td>
-    	<%= link_to "table #{t.number}", t %>
+    	<%= link_to "table #{t.id}", t %>
+      <%=t.get_usernames  %>
     	</td>
     	<td>
     </td>

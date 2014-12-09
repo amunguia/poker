@@ -19,7 +19,7 @@ class RoomsController < ApplicationController
   # GET /rooms/1.json
   def show
     if current_user
-      @tables = Table.find_all_by_room_id(params[:id])
+      @tables = Table.all
       puts @tables
     else
       redirect_to log_in_path, notice: "Must Login to Play"
