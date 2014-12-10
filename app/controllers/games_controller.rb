@@ -78,6 +78,7 @@ class GamesController < ApplicationController
        end
        if params[:action_type].eql? "stay"
           is_call = true
+          #bet = @game.get_min_bet
        else 
           is_call = false
        end
