@@ -2,7 +2,7 @@
 
 function build_game(game) {
 	game = JSON.parse(game);
-	show_game_started(game.started);
+	show_game_started(game.started, game.winner_id);
 	update_players(game.users);
 	update_cards(game);
 	update_pot(game.pot_bal);
@@ -17,7 +17,7 @@ function build_game(game) {
 		  poker.your_card1) {	//Wait for game to start before showing panel.
 		build_player_turn_panel();
 	} else {
-		if (game.current_player != "G-O") {
+		if (game.current_player != "G-O" && window.PLAYER_POSITION != undefined) {
 			remove_player_turn_panel();
 		}
 	}

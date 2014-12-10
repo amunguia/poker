@@ -1,9 +1,15 @@
-function show_game_started(started) {
-	if (started || poker.playing) {
+function show_game_started(started, winner_id) {
+	build_game_center_panel();
+    if (!started && window.PLAYER_POSITION === undefined) {
+        build_join_game_panel();
+    } else if (winner_id != undefined) {
+        new_game_panel();
+    }
+    /*if (started || poker.playing || winner_id) {
         build_game_center_panel();
 	} else {
         build_join_game_panel();
-	}
+	}*/
 }
 
 function new_game_panel() {
@@ -48,19 +54,26 @@ function build_game_center_panel() {
 }
 
 function build_join_game_panel() {
-	if ($("#join-panel").length > 0) {
+	/*if ($("#join-panel").length > 0) {
 		return;
-	}
+	}*/
 
 	if (poker.passed == false) {
-        var html = '<div class="join-observer-box">';
+        console.log("building join game.");
+        /*var html = '<div class="join-observer-box">';
         html += '<table class="join-observer-table"><tr><td>';
         html += '<button type="button" id="join-panel" class="btn btn-danger join-btn btn-lrg">JOIN</button>';
         html += '</td><td>';
         html += '<button type="button" id="observe-panel" class="btn btn-primary observe-btn btn-lrg">WATCH</button>';
         html += '</table></tr></td>';
         html += '</div>';
-        $("#game-row").html(html);
+        $("#game-row").html(html);*/
+
+        var html = '<button id="join-panel" class="btn btn-primary button">NEW GAME</button><br>';
+        html += '<button id="observe-panel" class="btn btn-danger button">WATCH</button><br>';
+        poker.next_game = false;
+
+        $("#action-console").html(html);
 
         $("#join-panel").on('click', function(event) {
              join_game();

@@ -273,7 +273,7 @@ class Game < ActiveRecord::Base
         if (p1_contrib + amt) > each_contrib
           self.update each_contrib: (p1_contrib + amt)
         end
-        if new_round && amt > min_bet
+        if new_round && amt >= min_bet 
             self.update new_round: false
         end
         self.update p1_contrib: self.p1_contrib + amt
@@ -282,7 +282,7 @@ class Game < ActiveRecord::Base
        if (p2_contrib + amt) > each_contrib
           self.update each_contrib: (p2_contrib + amt)
         end
-        if new_round && amt > min_bet
+        if new_round && amt >= min_bet
             self.update new_round: false
         end        
         self.update p2_contrib: self.p2_contrib + amt
@@ -291,7 +291,7 @@ class Game < ActiveRecord::Base
         if (p3_contrib + amt) > each_contrib
           self.update each_contrib: (p3_contrib + amt)
         end        
-        if new_round && amt > min_bet
+        if new_round && amt >= min_bet
             self.update new_round: false
         end        
         self.update p3_contrib: self.p3_contrib + amt
@@ -300,7 +300,7 @@ class Game < ActiveRecord::Base
         if (p4_contrib + amt) > each_contrib
           self.update each_contrib: (p4_contrib + amt)
         end 
-        if new_round && amt > min_bet
+        if new_round && amt >= min_bet
             self.update new_round: false
         end        
         self.update p4_contrib: self.p4_contrib + amt  
