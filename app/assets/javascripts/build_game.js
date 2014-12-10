@@ -8,14 +8,30 @@ function build_game(game) {
 	update_pot(game.pot_bal);
 	show_message(game.message);
 	$(".turn-ind").removeClass("turn-ind");
-	$("."+game.current_player).addClass("turn-ind");
+	if (game.started) {
+		$("."+game.current_player).addClass("turn-ind");
+	}
 	poker.min_bet = game.min_bet
 
 	if (game.current_player == window.PLAYER_POSITION &&
 		  poker.your_card1) {	//Wait for game to start before showing panel.
 		build_player_turn_panel();
 	} else {
-		remove_player_turn_panel();
+		if (game.current_player != "G-O") {
+			remove_player_turn_panel();
+		}
+	}
+
+	if (game.opponents_cards) {
+		add_opponents_cards(game.opponents_cards);
+	}
+
+	var src = $("#mycard1").attr('src');
+	if (game.started && src.substring(19) == "back.png") {
+		console.log("getting cards in build_game.js");
+        get_cards();
+	} else {
+		//console.log(""+game.started+":\t"+src);
 	}
 }
 
@@ -57,6 +73,7 @@ function update_players(users) {
 		string = users["p1"].username+": $"+users["p1"].balance;
 		$(".opp-p-"+i).text(string);
 		$(".opp-p-"+i).addClass("p1");
+		$(".opp-"+i).addClass("p1");
 		i++;
 	}
 
@@ -67,6 +84,7 @@ function update_players(users) {
 		string = users["p2"].username+": $"+users["p2"].balance;
 		$(".opp-p-"+i).text(string);
 		$(".opp-p-"+i).addClass("p2");
+		$(".opp-"+i).addClass("p2");
 		i++;
 	}
 
@@ -77,6 +95,7 @@ function update_players(users) {
 		string = users["p3"].username+": $"+users["p3"].balance;
 		$(".opp-p-"+i).text(string);
 		$(".opp-p-"+i).addClass("p3");
+		$(".opp-"+i).addClass("p3");
 		i++;
 	}	
 
@@ -87,14 +106,44 @@ function update_players(users) {
 		string = users["p4"].username+": $"+users["p4"].balance;
 		$(".opp-p-"+i).text(string);
 		$(".opp-p-"+i).addClass("p4");
+		$(".opp-"+i).addClass("p4");
 		i++;
 	}
-
+   
 	string = player.username+": $"+player.balance;
 	$("#my-p").text(string);
-	$("#my-p").addClass(player_number);
+	if (window.PLAYER_POSITION == undefined || window.PLAYER_POSITION.length < 1) {
+
+	} else {
+		$("#my-p").addClass(player_number);
+	}
 }
 
 function update_pot(pot) {
     $("#pot-balance").text("$"+pot);
+}
+
+function add_opponents_cards(o_cards) {
+	var cards;
+	if (o_cards["p1"] && window.PLAYER_POSITION != "p1") {
+        cards = $("div.p1 .card-img");
+        cards[0].src =  "../"+o_cards["p1"][0];
+        cards[1].src = "../"+o_cards["p1"][1];
+	} 
+	if (o_cards["p2"] && window.PLAYER_POSITION != "p2") {
+        cards = $("div.p2 .card-img");
+        cards[0].src =  "../"+o_cards["p2"][0];
+        cards[1].src = "../"+o_cards["p2"][1];
+	}
+    if (o_cards["p3"] && window.PLAYER_POSITION != "p3") {
+        cards = $("div.p3 .card-img");
+        cards[0].src =  "../"+o_cards["p3"][0];
+        cards[1].src = "../"+o_cards["p3"][1];
+    }
+    if (o_cards["p4"] && window.PLAYER_POSITION != "p4") {
+        cards = $("div.p4 .card-img");
+        cards[0].src =  "../"+o_cards["p4"][0];
+        cards[1].src = "../"+o_cards["p4"][1];
+    }
+
 }

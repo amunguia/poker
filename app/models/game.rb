@@ -97,7 +97,11 @@ class Game < ActiveRecord::Base
   end
 
   def current_player_str
-    self.order.split(",")[0]
+    if self.winner_id
+      "G-O"
+    else
+      self.order.split(",")[0]
+    end
   end
 
   def current_player_folds
@@ -108,18 +112,42 @@ class Game < ActiveRecord::Base
     set_current_player array[0]
     self.players_left -= 1
     self.save
-    array[0]
+    self.players_left
   end
 
   def determine_winner
     #Call codd  
   end
 
+  def get_opponents_cards
+    if self.winner_id == nil 
+      {:message => "Called Game.get_opponents_cards too early."}
+    elsif self.order.split(",").length < 2
+      nil
+    else
+      cards = {}
+      self.order.split(",").each do |p|
+        if p.eql? "p1"
+          cards[p] = cards_for_player p1
+        elsif p.eql? "p2"
+          cards[p] = cards_for_player p2
+        elsif p.eql? "p3"
+          cards[p] = cards_for_player p3
+        else
+          cards[p] = cards_for_player p4
+        end 
+      end
+      cards
+    end
+  end
+
   def get_winner
-    if (!next_card? && table_even?) 
+    if (!next_card? && table_even?) || (self.players_left == 1)
       self.winner_id = calculate_winner
       if (self.each_contrib > 0) 
         user = User.find self.winner_id
+        self.message = "The winner is #{user.username}"
+        self.save
         user.balance += (self.p1_contrib + 
           self.p2_contrib + self.p3_contrib + self.p4_contrib)
         user.save
@@ -188,7 +216,11 @@ class Game < ActiveRecord::Base
   end
 
   def one_player_left?
-    return self.order.split(",").length == 1
+    (self.players_left <= 1)
+  end
+
+  def two_players_left?
+
   end
 
   def player_antes(player) 
@@ -208,7 +240,7 @@ class Game < ActiveRecord::Base
     end
   end
 
-  def player_bets(amt)
+  def player_bets(amt, calls)
     player_str = current_player_str
     if player_str.eql? "p1"
       if (p1_contrib + amt) < each_contrib
@@ -228,8 +260,10 @@ class Game < ActiveRecord::Base
       end
     end
 
-    if amt == 0
+    if amt == 0 && !calls
       message = "#{current_player_obj.username} stays."
+    elsif calls
+      message = "#{current_player_obj.username} calls."
     else
       message = "#{current_player_obj.username} bet $#{amt}"
     end
@@ -371,6 +405,9 @@ class Game < ActiveRecord::Base
     state[:p3_contrib] = p3_contrib
     state[:p4_contrib] = p4_contrib
     state[:result] = true
+    if self.winner_id
+      state[:winner_id] = self.winner_id
+    end
     state[:pot_bal] = self.p1_contrib + self.p2_contrib + self.p3_contrib + self.p4_contrib
     if (card1) 
       state[:card1] = Deck.card_for_string(self.card1).to_url 
@@ -396,6 +433,9 @@ class Game < ActiveRecord::Base
       state[:card5] = Deck.card_for_string(self.card5).to_url 
     else
       state[:card5] = nil
+    end
+    if self.winner_id 
+      state[:opponents_cards] = self.get_opponents_cards
     end
     state.to_json
   end
@@ -451,18 +491,20 @@ class Game < ActiveRecord::Base
   end
 
   def calculate_winner
-
-    winning_score = -1
-    winner = ""
-    hands = hands_for_players
-    hands.each_key do |p|
-      hand = hands[p]
-      if hand.bestscore > winning_score
-        winner = p
-        winning_score = hand.bestscore
+    if self.players_left == 1
+      winner  = self.order.split(",")[0]
+    else
+      winning_score = -1
+      winner = ""
+      hands = hands_for_players
+      hands.each_key do |p|
+        hand = hands[p]
+        if hand.bestscore > winning_score
+          winner = p
+          winning_score = hand.bestscore
+        end
       end
     end
-
     if winner.eql? "p1"
       p1
     elsif winner.eql? "p2"
