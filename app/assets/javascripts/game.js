@@ -62,8 +62,9 @@ $(document).ready(function() {
     });
     setInterval(get_game, 1000);
     window.CARD_INTERVAL = setInterval(if_needed_get_cards, 1000);
-    get_chat_index();
-
+    //get_chat_index();
+    window.CHAT_INDEX = 0;
+    window.CHAT_INTERVAL = setInterval(get_chats, 1000);
 
     if (window.PLAYER_POSITION) {
         poker.playing = true;

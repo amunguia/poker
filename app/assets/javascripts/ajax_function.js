@@ -134,7 +134,7 @@ function get_next_game() {
 
 function get_chat_index() {
     $.ajax({
-      url: ""+window.TABLE_ID+"/chat_index",
+      url: window.TABLE_ID+"/chat_index",
       success: function(data) {
         if (data.success) {
             window.CHAT_INDEX = data.index;
@@ -148,8 +148,10 @@ function get_chats() {
     $.ajax({
       url: "../../chats/"+window.TABLE_ID+"/"+window.CHAT_INDEX,
       success: function(data) {
-        if (data.length > 0) {
-            update_chat(data);
+        window.CHAT_INDEX = data.index;
+        chats = data.chats;
+        if (chats.length > 0) {
+            update_chat(chats);
         }    
       }
     });
