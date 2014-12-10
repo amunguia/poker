@@ -204,6 +204,27 @@ cards[6] = Card.new('6','D');
 
 test.test(cards, 10.26)
 
+cards[0] = Card.new('4','D');
+cards[1] = Card.new('9','C');
+cards[2] = Card.new('3','S');
+cards[3] = Card.new('11','S');
+cards[4] = Card.new('2','H');
+cards[5] = Card.new('7','H');
+cards[6] = Card.new('12','D');
+
+test.test(cards, 10.26)
+
+cards = Array.new
+cards[0] = Card.new('4','S');
+cards[1] = Card.new('9','D');
+cards[2] = Card.new('3','S');
+cards[3] = Card.new('11','S');
+cards[4] = Card.new('2','H');
+cards[5] = Card.new('7','H');
+cards[6] = Card.new('12','D');
+
+test.test(cards, 10.26)
+
 
 
 

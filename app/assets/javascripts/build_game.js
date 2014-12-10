@@ -26,12 +26,21 @@ function build_game(game) {
 		add_opponents_cards(game.opponents_cards);
 	}
 
-	var src = $("#mycard1").attr('src');
+	/*var src = $("#mycard1").attr('src');
 	if (game.started && src.substring(19) == "back.png") {
 		console.log("getting cards in build_game.js");
         get_cards();
 	} else {
 		//console.log(""+game.started+":\t"+src);
+	}*/
+
+	if (game.started && window.PLAYER_POSITION && poker.your_card1 == undefined) {
+		get_cards();
+		//console.log('hello');
+	} else {
+		//console.log('here');
+		$("#mycard1").attr("src", poker.your_card1);
+        $("#mycard2").attr("src", poker.your_card2);
 	}
 }
 

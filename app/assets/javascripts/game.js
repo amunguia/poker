@@ -39,29 +39,7 @@ var poker = {
 }
 
 $(document).ready(function() {
-    setInterval(get_game, 1000);
-    window.CARD_INTERVAL = setInterval(if_needed_get_cards, 1000);
-    get_chat_index();
-
-
-    if (window.PLAYER_POSITION) {
-        poker.playing = true;
-    }
-
-    $("#chat-submit").click(function(event) {
-      event.preventDefault();
-      console.log("Here.");
-      $.ajax({
-        url: "../../chats/new",
-        type: "POST",
-        data: {
-            message: $("#chat-message").val(),
-            table_id: $("#chat-table-id").val()
-        }
-      });
-      $("#chat-message").val("");
-    });
-
+    console.log($(".chat-input"));
     $(".chat-input").keypress(function(event){
         if (event.which == 13) {
             $.ajax({
@@ -74,7 +52,31 @@ $(document).ready(function() {
             });
             $("#chat-message").val("");
         } 
+        console.log("tap.");
     });
+    setInterval(get_game, 1000);
+    window.CARD_INTERVAL = setInterval(if_needed_get_cards, 1000);
+    get_chat_index();
+
+
+    if (window.PLAYER_POSITION) {
+        poker.playing = true;
+    }
+
+    /*$("#chat-submit").click(function(event) {
+      event.preventDefault();
+      console.log("Here.");
+      $.ajax({
+        url: "../../chats/new",
+        type: "POST",
+        data: {
+            message: $("#chat-message").val(),
+            table_id: $("#chat-table-id").val()
+        }
+      });
+      $("#chat-message").val("");
+    });*/
+    console.log('here');
 
     if (window.PLAYER_POSITION == undefined) {
         join_game();

@@ -69,7 +69,7 @@ function build_join_game_panel() {
         html += '</div>';
         $("#game-row").html(html);*/
 
-        var html = '<button id="join-panel" class="btn btn-primary button">NEW GAME</button><br>';
+        var html = '<button id="join-panel" class="btn btn-primary button">JOIN</button><br>';
         html += '<button id="observe-panel" class="btn btn-danger button">WATCH</button><br>';
         poker.next_game = false;
 
