@@ -169,25 +169,38 @@ cards[6] = Card.new('10','C');
 
 test.test(cards, 10.26)
 
+puts "\n\n\n\n"
+
 cards = Array.new
-cards[0] = Card.new('3','S');
-cards[1] = Card.new('14','S');
-cards[2] = Card.new('6','H');
-cards[3] = Card.new('2','S');
-cards[4] = Card.new('9','D');
-cards[5] = Card.new('14','C');
-cards[6] = Card.new('10','C');
+cards[0] = Card.new('7','D');
+cards[1] = Card.new('2','D');
+cards[2] = Card.new('10','C');
+cards[3] = Card.new('7','C');
+cards[4] = Card.new('13','H');
+cards[5] = Card.new('11','H');
+cards[6] = Card.new('3','S');
 
 test.test(cards, 10.26)
 
 
-cards[0] = Card.new('3','S');
+cards[0] = Card.new('13','D');
+cards[1] = Card.new('8','S');
+cards[2] = Card.new('10','C');
+cards[3] = Card.new('7','C');
+cards[4] = Card.new('13','H');
+cards[5] = Card.new('11','H');
+cards[6] = Card.new('3','S');
+
+test.test(cards, 10.26)
+
+cards = Array.new
+cards[0] = Card.new('4','H');
 cards[1] = Card.new('13','S');
-cards[2] = Card.new('6','H');
-cards[3] = Card.new('2','S');
-cards[4] = Card.new('9','D');
-cards[5] = Card.new('13','C');
-cards[6] = Card.new('10','C');
+cards[2] = Card.new('10','C');
+cards[3] = Card.new('7','C');
+cards[4] = Card.new('13','H');
+cards[5] = Card.new('11','H');
+cards[6] = Card.new('3','S');
 
 test.test(cards, 10.26)
 
