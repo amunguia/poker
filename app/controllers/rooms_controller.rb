@@ -6,6 +6,22 @@ class RoomsController < ApplicationController
   def index
     if current_user
       @rooms = Room.all
+      @num  = Array.new(3,0)
+      i = 0
+      Table.all.each do |item|
+        if item.id.to_i <= 10
+          i = 0
+        @num[i] += (item.get_usernames).size
+        elsif item.id.to_i > 10 && item.id.to_i <= 20
+          i = 1
+        @num[i] += (item.get_usernames).size
+        else
+          i = 2
+         @num[i] += (item.get_usernames).size
+        end
+
+
+      end
 
       @games = current_games
 
@@ -20,7 +36,7 @@ class RoomsController < ApplicationController
   def show
     if current_user
         @tables = Table.find_all_by_room_id(params[:id])
-      puts @tables
+     # puts @tables
     else
       redirect_to log_in_path, notice: "Must Login to Play"
       return

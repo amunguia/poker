@@ -40,4 +40,15 @@ class Table < ActiveRecord::Base
 
   end
 
+ def get_status
+ 	
+  	size = (self.get_usernames).size
+  	if(size == 4)
+      "Playing"
+ 	 else
+
+  	 "Waiting"
+ 	 end
+ end
+
 end

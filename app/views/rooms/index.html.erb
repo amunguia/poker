@@ -16,17 +16,18 @@
   </thead>
 
   <tbody>
-    <% @rooms.each do |room| %>
-
+    <% i = 0 %>
+    <% @rooms.each do |room|%>
     <tr>
       <td><%= link_to  room.name, room %></td>
       <td>$<%= room.minimum_bet %></td>
-      <td># of players</td>
+      <td><%= @num[i]%> of players</td>
       <% if @admin %>
       <td><%= link_to 'Show', room %></td>
       <td><%= link_to 'Edit', edit_room_path(room) %></td>
       <td><%= link_to 'Destroy', room, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       <% end %>
+      <% i +=1 %>
     </tr>
     <% end %>
   </tbody>
