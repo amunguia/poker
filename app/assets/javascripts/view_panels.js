@@ -68,10 +68,7 @@ function build_join_game_panel() {
         html += '</table></tr></td>';
         html += '</div>';
         $("#game-row").html(html);*/
-
-        var html = '<button id="join-panel" class="btn btn-primary button">JOIN</button><br>';
-        html += '<button id="observe-panel" class="btn btn-danger button">WATCH</button><br>';
-
+        
         var html = '<br><button id="join-panel" class="btn join-btn btn-danger button">JOIN</button><br>';
         html += '<button id="observe-panel" class="btn observe-btn btn-primary button">WATCH</button><br>';
 
