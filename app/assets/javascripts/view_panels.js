@@ -37,7 +37,7 @@ function build_game_center_panel() {
 		return; //Already there.
 	}
 
-    var html = '<div id="stream-panel" class="col-sm-7">';
+    var html = '<div id="stream-panel" class="col-md-8">';
     html += '<image src="../../cards/card_back.png" class="card-img" id="card1">';
     html += '<image src="../../cards/card_back.png" class="card-img" id="card2">';
     html += '<image src="../../cards/card_back.png" class="card-img" id="card3">';
