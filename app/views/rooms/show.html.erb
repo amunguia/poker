@@ -9,18 +9,34 @@
       <th>Table Name</th>
       <th>Players</th>
       <th>Status</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
 
   <% @tables.each do |t|  %>
-  	<tr>
+  	<tr class="table-list">
   		<td>
-    	<%= link_to "table #{t.number}", t %>
-      <%=t.get_usernames  %> <%=t.get_status%>
+    	 <%= link_to "table #{t.number}", t %>
     	</td>
-    	<td>
-    </td>
+      <td>
+          <% t.get_usernames.each do |player| %>
+              <u><%= player %></u>&nbsp;&nbsp;
+          <% end %>
+      </td>
+      <% case t.get_status %>
+        <% when "Playing"%>
+          <td class="table-status-p">
+        <% when "Waiting" %>
+          <td class="table-status-w">
+      <% end %>
+      <%= t.get_status %>
+      </td>
+      <td>
+        <button id="Join-game" class="btn btn-join-table">
+          <%= link_to "Join Table", t %></button>
+      </td>
+    </tr>
   <% end %>
 
   </tbody>
