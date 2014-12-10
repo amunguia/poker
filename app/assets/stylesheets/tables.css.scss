@@ -95,7 +95,7 @@ div.turn-ind {
 
 #action-console {
   background-color: #1A1A1A;
-  height: 200px;
+  height: 100%;
   border-top-left-radius: 5px;
 }
 
@@ -187,6 +187,10 @@ div.turn-ind {
   background-color: #1A1A1A;
 }
 
+#bet_amt {
+ background-color: #1A1A1A;
+}
+
 .chat-frame {
   padding-right: 0px;
   padding-left: 15px;
@@ -217,7 +221,6 @@ div.turn-ind {
 
 .input-box {
    width: 100%;
-   background-color: #222222;
    background-color: #1A1A1A;
   /* width: 940px; */ 
 }
@@ -230,8 +233,8 @@ div.turn-ind {
 }
 
 .chat-input {
-  margin-top: 15px;
+  width: 100%;
+  margin-bottom: 15px;
   color: grey;
   float: left;
-  float: bottom;
 }
