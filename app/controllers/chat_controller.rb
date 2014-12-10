@@ -24,7 +24,12 @@ class ChatController < ApplicationController
   def index
   	table = Table.find params[:table_id].to_i
   	result = []
+    index = -1;
   	table.chat.each do |c|
+      if c.id >= index
+        index = c.id
+      end
+      
       if c.id > params[:chat_index].to_i
         result << {
         	index: c.id,
@@ -33,7 +38,14 @@ class ChatController < ApplicationController
         }
       end
   	end
-  	render :json => result
+    if params[:chat_index] == 0
+      result = result.reverse[0]
+    end
+    if result.length > 5
+      result = result.reverse.slice(0,5)
+    end
+    hash = {:index => index, :chats => result}
+  	render :json => hash
   end
 
 end

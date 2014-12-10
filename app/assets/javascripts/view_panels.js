@@ -161,6 +161,7 @@ function build_player_bets_panel() {
 
 
 function update_chat(chats) {
+    console.log("CHATSSSSSSS   "+ chats.length );
     for (var i = 0; i < chats.length; i++) {
         var chat = chats[i];
         if (chat.index > window.CHAT_INDEX) {
