@@ -33,8 +33,7 @@
       <%= t.get_status %>
       </td>
       <td>
-        <button id="Join-game" class="btn btn-join-table">
-          <%= link_to "Join Table", t %></button>
+      <%= button_to("Join Table", t, :method => :get, :class => "btn btn-join-table") %>
       </td>
     </tr>
   <% end %>
