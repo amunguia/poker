@@ -5,11 +5,21 @@ function get_game() {
 	$.ajax({
 		url:"../game_status?id="+window.GAME_ID,
 	    success: function(data) {
+            var g = JSON.parse(data);
             console.log(data);
-            if (!data.winner_id) {
+            //console.log(g);
+            //console.log(g.winner_id);
+            if (!g.winner_id) {
                 build_game(data);
             } else {
-                get_next_game();
+                //console.log(data.winner_id);
+                if (poker.next_game) {
+                  //get_next_game();
+                } else {
+                    build_game(data);
+                    new_game_panel();
+                }
+
             }
             show_message(data.message);
 	    }
@@ -29,6 +39,11 @@ function join_game() {
                 window.PLAYER_POSITION = data.player;
                 poker.playing = true;
                 poker.error = false;
+                $(".p1").removeClass("p1");
+                $(".p2").removeClass("p2");
+                $(".p3").removeClass("p3");
+                $(".p4").removeClass("p4");
+                $(".card-img").attr("src", "../cards/card_back.png");
             } else {
                 poker.error = true;
             }
@@ -62,10 +77,6 @@ function move(action, amount) {
 	if (action === BET && amount <= 0) {
 		amount = 0;
 	}
-	else if (action === STAY) {
-		action = BET;
-	    amount = 0;
-    }
     else if (action === FOLD) {
         amount = 0;
     }
@@ -114,6 +125,8 @@ function get_next_game() {
             $(".p3").removeClass("p3");
             $(".p4").removeClass("p4");
             window.CARD_INTERVAL = setInterval(if_needed_get_cards, 1000);
+            poker.next_game = false;
+            join_game();
         } 
       }
     });

@@ -2,7 +2,7 @@
 <h1> You are in the <%= @room_name %> on table <%= @table.number %></h1>
 <div id="game-display" class="game-frame">
   <div id="opponents-row" class="row">
-    <div id="first-player" class="opponent op-left col-sm-4">
+    <div id="first-player" class="opponent op-left col-sm-4 opp-1">
       <div class="opponents-cards">
         <%= image_tag "cards/card_back.png", :class => "card-img" %>
         <%= image_tag "cards/card_back.png", :class => "card-img" %>
@@ -11,7 +11,7 @@
         <p class="opp-p-1"></p>
       </div>
     </div>
-    <div id="second-player" class="opponent op-center col-sm-4">
+    <div id="second-player" class="opponent op-center col-sm-4 opp-2">
       <div class="opponents-cards">
         <%= image_tag "cards/card_back.png", :class => "card-img" %>
         <%= image_tag "cards/card_back.png", :class => "card-img" %>
@@ -20,7 +20,7 @@
         <p class="opp-p-2"></p>
       </div>
     </div>
-    <div id="third-player" class="opponent op-right col-sm-4">
+    <div id="third-player" class="opponent op-right col-sm-4 opp-3">
       <div class="opponents-cards">
         <%= image_tag "cards/card_back.png", :class => "card-img" %>
         <%= image_tag "cards/card_back.png", :class => "card-img" %>

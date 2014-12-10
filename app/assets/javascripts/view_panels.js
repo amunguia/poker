@@ -6,17 +6,43 @@ function show_game_started(started) {
 	}
 }
 
+function new_game_panel() {
+    var html = '<button id="join-panel" class="btn btn-primary button">NEW GAME</button><br>';
+    html += '<button id="observe-panel" class="btn btn-danger button">WATCH</button><br>';
+    poker.next_game = false;
+
+    $("#action-console").html(html);
+
+        $("#stay").on("click", function(event) {
+        console.log("st...");
+        stay();
+    });
+
+    $("#join-panel").on('click', function(event) {
+        get_next_game();
+        //join_game();
+        poker.playing = true;
+        poker.next_game = true;
+        //show_game_started(true);
+    });
+
+    $("#observe-panel").on('click', function(event) {
+        poker.passed = true;
+        show_game_started(true);
+    });
+}
+
 function build_game_center_panel() {
 	if ($("#stream-panel").length  > 0) {
 		return; //Already there.
 	}
 
     var html = '<div class="col-sm-2"></div><div id="stream-panel" class="col-sm-6">';
-    html += '<image src="../cards/card_back.png" class="card-img" id="card1">';
-    html += '<image src="../cards/card_back.png" class="card-img" id="card2">';
-    html += '<image src="../cards/card_back.png" class="card-img" id="card3">';
-    html += '<image src="../cards/card_back.png" class="card-img" id="card4">';
-    html += '<image src="../cards/card_back.png" class="card-img" id="card5">';
+    html += '<image src="../../cards/card_back.png" class="card-img" id="card1">';
+    html += '<image src="../../cards/card_back.png" class="card-img" id="card2">';
+    html += '<image src="../../cards/card_back.png" class="card-img" id="card3">';
+    html += '<image src="../../cards/card_back.png" class="card-img" id="card4">';
+    html += '<image src="../../cards/card_back.png" class="card-img" id="card5">';
     html += '</div><div id="pot-status" class="col-sm-2"><p id="pot-balance">$0</p></div>';
     $("#game-row").html(html);
 }
@@ -39,6 +65,7 @@ function build_join_game_panel() {
         $("#join-panel").on('click', function(event) {
              join_game();
              poker.playing = true;
+             //poker.next_game = true;
              show_game_started(true);
         });
 

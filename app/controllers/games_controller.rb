@@ -60,16 +60,32 @@ class GamesController < ApplicationController
     end
 
     if params[:action_type].eql? "fold"
-       @game.current_player_folds
-       if @game.one_player_left?
-         winner_id = @game.get_winner  #winner bc everyone else folded
+       left = @game.current_player_folds
+       if left == 1
+          winner_id = @game.get_winner  #winner bc everyone else folded
+          table = Table.find @game.table_id
+          if table.get_game.id == @game.id
+            table.new_game # initiate a new game only once.
+          end
+          render :json => {:winner_id => winner_id}
+          return
        end
     else
-       if @game.new_round && (params[:amt].to_i < @game.min_bet && params[:amt].to_i != 0)
+       if !@game.new_round && params[:amt].to_i == 0
+          bet = @game.get_min_bet
+        else
+          bet = params[:amt].to_i
+       end
+       if params[:action_type].eql? "stay"
+          is_call = true
+       else 
+          is_call = false
+       end
+       if @game.new_round && (bet < @game.min_bet && bet != 0)
          render :json => {:message => "Sorry. Your bet is below the minimum bet.", :result => false}
          return
        end
-       if !@game.player_bets params[:amt].to_i
+       if !@game.player_bets bet, is_call
          render :json => {:message => "Sorry. You do not have enough money for that bet.", :result => false}
          return
        else
@@ -106,7 +122,7 @@ class GamesController < ApplicationController
     id = game.winner_id
     if id != nil && id > 0
       user = User.find id
-      render :json => {:winner_id => id, :message => "The winner is #{user.username}"}
+      render :text => game.to_json
       return
     end
 
