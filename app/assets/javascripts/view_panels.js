@@ -13,7 +13,7 @@ function show_game_started(started, winner_id) {
 }
 
 function new_game_panel() {
-    var html = '<button id="join-panel" class="btn btn-primary button">NEW GAME</button><br>';
+    var html = '<br><button id="join-panel" class="btn btn-primary observe-btn button">CONTINUE</button><br>';
     //html += '<button id="observe-panel" class="btn btn-danger button">WATCH</button><br>';
     poker.next_game = false;
 
