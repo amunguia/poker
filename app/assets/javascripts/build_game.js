@@ -42,6 +42,25 @@ function build_game(game) {
 		$("#mycard1").attr("src", poker.your_card1);
         $("#mycard2").attr("src", poker.your_card2);
 	}
+
+	$("#chat-message").keypress(function(event) {
+        if (event.which == 13) {
+            if ($("#chat-message").val().length < 1) {
+                return;
+            }
+            $.ajax({
+                url: "../../chats/new",
+                type: "POST",
+                data: {
+                    message: $("#chat-message").val(),
+                    table_id: $("#chat-table-id").val()
+                }
+            });
+            $("#chat-message").val("");
+        } 
+        console.log("tap.");
+	});        
+	
 }
 
 function update_cards(game) {
