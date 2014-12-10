@@ -96,6 +96,12 @@ function show_message(message) {
         return;
     }
     $("#message").html(message);
+    if (window.MESSAGE != message) {
+      var message_li = $("<li>"+message+"</li>");
+      message_li.css("color", "red");
+      $("#chat-list").prepend(message_li);
+      window.MESSAGE = message;
+    }
     if (message.substring(0,13) == "The winner is") {
         window.WINNER_HOLD = 10;
     }
