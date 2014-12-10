@@ -244,7 +244,7 @@ def pair(set)
     if(repeat[0].number.to_i == more)
      more = 0
    end
-   return 3 + (repeat[0].number.to_i  / 100.0 )+ (more / 100.0)
+   return 3 + (repeat[0].number.to_i  / 100.0 )+ (more / 1000.0)
  end
  return 0
  
