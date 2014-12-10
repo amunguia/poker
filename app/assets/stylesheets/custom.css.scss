@@ -86,3 +86,29 @@ body {
   background-position: center 0px;
 }
 
+
+tr.table-list {
+  border-top: 1px solid grey;
+}
+
+td, th {
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+td.table-status-p {
+  color: red;
+}
+
+td.table-status-w {
+  color: green;
+}
+
+.btn-join-table {
+  width: auto;
+  font-weight: bold;
+  background-color: #222222;
+  border-color: grey;
+}
