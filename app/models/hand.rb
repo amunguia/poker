@@ -239,14 +239,20 @@ def pair(set)
   uniq = set.uniq { |e| e.number }
   repeat = set - uniq
   more = high_card(set).to_i
-  if(uniq.size == 4)
 
-    if(repeat[0].number.to_i == more)
+  if(uniq.size == 4)
+      pair = repeat[0].number.to_i
+   if(pair == 1)
+      pair = 14
+   end
+
+    if(pair == more)
      more = 0
    end
-   return 3 + (repeat[0].number.to_i  / 100.0 )+ (more / 1000.0)
+   return 3 + (pair / 100.0 )+ (more / 1000.0)
  end
  return 0
+ 
  
 end
 
