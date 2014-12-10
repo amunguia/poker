@@ -51,16 +51,17 @@
 
 
   <div id="chat-box" class="chat-frame col-md-4">
-    <div id="chats" class="chats">
-      <ul id="chat-list" class="chat-list">
-      </ul>
-    </div>
     <div class="chat-input">
       <!-- <form action="../chat/new"> -->
-        <input id="chat-message" class="input-box" type="text" name="message"></input>
+        <p>Enter Text:</p>
+        <input id="chat-message" class="input-box" type="text" name="message" style="padding-bottom: 5px;"></input>
         <!-- <input id="chat-submit" class="btn btn-send-chat" type="submit" value="Send"></input> -->
         <input id="chat-table-id" type="hidden" name="table_id" value=<%= "#{@table_id}" %>></input>
       <!-- </form> -->
+    </div>
+    <div id="chats" class="chats">
+      <ul id="chat-list" class="chat-list">
+      </ul>
     </div>
   </div>
 

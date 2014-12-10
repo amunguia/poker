@@ -61,6 +61,25 @@ $(document).ready(function() {
       });
       $("#chat-message").val("");
     });
+
+    $(".chat-input").keypress(function(event){
+        if (event.which == 13) {
+            $.ajax({
+                url: "../../chats/new",
+                type: "POST",
+                data: {
+                    message: $("#chat-message").val(),
+                    table_id: $("#chat-table-id").val()
+                }
+            });
+            $("#chat-message").val("");
+        } 
+    });
+
+    if (window.PLAYER_POSITION == undefined) {
+        join_game();
+    }
+
 });
 
 function show_message(message) {

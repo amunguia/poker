@@ -16,6 +16,13 @@ class GamesController < ApplicationController
     else
       #Check user has min balance
       @game = Game.find(params[:id].to_i)
+      pos = @game.is_user_in_game? current_user
+      if pos
+        render :json => {:messge => "Already in game.", :result => true, :player => pos}
+        return
+      end
+
+
       if @game && current_user.balance > @game.min_bet
         player = @game.add_player current_user.id
         if player
