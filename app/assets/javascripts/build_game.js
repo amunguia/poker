@@ -59,7 +59,7 @@ function build_game(game) {
             });
             $("#chat-message").val("");
         } 
-        console.log("tap.");
+        //console.log("tap.");
 	  });      
 	  //window.CHAT = true;  
 	//}
