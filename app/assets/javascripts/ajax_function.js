@@ -47,7 +47,7 @@ function join_game() {
             } else {
                 poker.error = true;
             }
-            show_message(data.message);
+            //show_message(data.message);
         }      
 	});
 }

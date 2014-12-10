@@ -167,6 +167,6 @@ function update_chat(chats) {
         if (chat.index > window.CHAT_INDEX) {
             window.CHAT_INDEX = chat.index;
         }
-        $("#chat-list").prepend("<li>"+chat.username+": "+chat.message+"</li>")
+        $("#chat-list").prepend("<li>"+chat.username+": "+chat.message+"</li>");
     }
 }
