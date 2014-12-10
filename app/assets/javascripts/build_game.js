@@ -43,7 +43,8 @@ function build_game(game) {
         $("#mycard2").attr("src", poker.your_card2);
 	}
 
-	$("#chat-message").keypress(function(event) {
+    //if ($("#chat-message").length > 0 && window.CHAT == undefined) {
+	  $("#chat-message").keypress(function(event) {
         if (event.which == 13) {
             if ($("#chat-message").val().length < 1) {
                 return;
@@ -59,8 +60,9 @@ function build_game(game) {
             $("#chat-message").val("");
         } 
         console.log("tap.");
-	});        
-	
+	  });      
+	  //window.CHAT = true;  
+	//}
 }
 
 function update_cards(game) {
