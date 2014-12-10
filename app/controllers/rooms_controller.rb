@@ -12,7 +12,7 @@ class RoomsController < ApplicationController
         if item.id.to_i <= 10
           i = 0
         @num[i] += (item.get_usernames).size
-        elsif item.id.to_i > 10 && item.id.to_i <= 20
+        elsif item.id.to_i > 10 ||item.id.to_i <= 20
           i = 1
         @num[i] += (item.get_usernames).size
         else
