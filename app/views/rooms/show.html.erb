@@ -16,11 +16,21 @@
   <% @tables.each do |t|  %>
   	<tr>
   		<td>
-    	<%= link_to "table #{t.number}", t %>
-      <%=t.get_usernames  %> <%=t.get_status%>
+    	 <%= link_to "table #{t.number}", t %>
     	</td>
+      <td>
+        <ul>
+          <% t.get_usernames.each do |player| %>
+            <li>
+              <%= player %>
+            </li>
+          <% end %>
+        </ul>
+      </td>
     	<td>
-    </td>
+        <%=t.get_status%>
+      </td>
+    </tr>
   <% end %>
 
   </tbody>
