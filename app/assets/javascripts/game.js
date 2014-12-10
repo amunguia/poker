@@ -39,9 +39,15 @@ var poker = {
 }
 
 $(document).ready(function() {
-    console.log($(".chat-input"));
-    $(".chat-input").keypress(function(event){
+    /*if ($("#chat-message").length < 1) {
+        console.log("\n\n\n\n\n\n\n\n\nUhoh");
+    }
+    console.log("Hello\n\n"+$(".chat-input"));*/
+    $("#chat-message").keypress(function(event){
         if (event.which == 13) {
+            if ($("#chat-message").val().length < 1) {
+                return;
+            }
             $.ajax({
                 url: "../../chats/new",
                 type: "POST",
@@ -52,7 +58,7 @@ $(document).ready(function() {
             });
             $("#chat-message").val("");
         } 
-        console.log("tap.");
+        //console.log("tap.");
     });
     setInterval(get_game, 1000);
     window.CARD_INTERVAL = setInterval(if_needed_get_cards, 1000);

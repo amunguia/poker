@@ -6,7 +6,7 @@ function get_game() {
 		url:"../game_status?id="+window.GAME_ID,
 	    success: function(data) {
             var g = JSON.parse(data);
-            console.log(data);
+            //console.log(data);
             //console.log(g);
             //console.log(g.winner_id);
             if (!g.winner_id) {
