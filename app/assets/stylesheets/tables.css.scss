@@ -26,7 +26,7 @@
   color: #FF9900;
   font-weight: bold;
   height: 180px;
-  padding-top: 10px;
+  padding-top: 20px;
   padding-bottom: 5px;
   text-align: center;
 }
@@ -51,6 +51,8 @@ div.turn-ind {
 .card-img {
   width: 80px;
   height: 120px;
+  border: 1px solid black;
+  border-radius: 8px;
 }
 
 #game-row {
@@ -60,7 +62,7 @@ div.turn-ind {
 }
 
 #stream-panel {
-  padding-top: 20px;
+  padding-top: 10px;
 }
 
 #pot-status {
@@ -166,8 +168,7 @@ div.turn-ind {
 
 .observe-btn {
   color: #222222;
-  width: 90%;
-  margin-left: 25px;
+  width: 100%;
   background-color: #1919FF;
   font-weight: bold;
 }
