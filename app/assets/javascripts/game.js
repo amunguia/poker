@@ -98,7 +98,11 @@ function show_message(message) {
     //$("#message").html(message);
     if (window.MESSAGE != message) {
       var message_li = $("<li>"+message+"</li>");
-      message_li.css("color", "red");
+      if (message.substring(0,10) == "The winner") {
+            message_li.css("color", "yellow");
+      } else {
+            message_li.css("collor", "red");
+      }
       $("#chat-list").prepend(message_li);
       window.MESSAGE = message;
     }
