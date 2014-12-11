@@ -39,11 +39,5 @@ if !Room.find_by_name("Basic Room")
       t.room = high_roller_room
       t.min_bet = high_roller_room.minimum_bet
    end.save
-
-   Table.new do |t|
-      t.number = i
-      t.room = high_roller_room
-      t.min_bet = high_roller_room.minimum_bet
-    end.save
   end
 end
