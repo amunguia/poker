@@ -26,7 +26,7 @@ class RoomsController < ApplicationController
 
       high = Room.find_by_name("High Rollers Room")
       high = Table.where(room_id: high.id)
-       medium.each do |item|
+      high.each do |item|
         @num[2]  += (item.get_usernames).size
       end
 
