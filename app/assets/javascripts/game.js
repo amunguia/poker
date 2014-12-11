@@ -95,7 +95,7 @@ function show_message(message) {
     if (message == undefined || message.length < 1) {
         return;
     }
-    $("#message").html(message);
+    //$("#message").html(message);
     if (window.MESSAGE != message) {
       var message_li = $("<li>"+message+"</li>");
       message_li.css("color", "red");
