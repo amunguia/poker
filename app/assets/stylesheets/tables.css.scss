@@ -28,7 +28,6 @@
   height: 180px;
   padding-top: 10px;
   padding-bottom: 5px;
-  border-bottom: 6px solid #1a1a1a;
   text-align: center;
 }
 
@@ -55,6 +54,7 @@ div.turn-ind {
 }
 
 #game-row {
+  margin-top: 10px;
   height: 180px;
   background-image:url(image-path('table_felt.jpg'));
 }
@@ -76,26 +76,28 @@ div.turn-ind {
 }
 
 #pot-balance {
+  font-size: 125%;
   text-align: center;
-  padding-top: 12%;
+  padding-top: 25px;
 }
 
 #players-row {
   color: #FF9900;
   font-weight: bold;
-  height: 250px;
+  height: 282px;
   background-image:url(image-path('table_felt.jpg'));  
 }
 
 #my-cards {
   height: 200px;
-  padding-top: 30px;  
+  padding-top: 50px;  
   text-align: center;
 }
 
 #action-console {
   background-color: #1A1A1A;
   height: 100%;
+  border: 1px solid grey;
   border-top-left-radius: 5px;
 }
 
@@ -172,6 +174,7 @@ div.turn-ind {
 
 .action-panel {
   color: #1A1A1A;
+  border: 1px solid grey;
 }
 
 #message {
@@ -194,7 +197,6 @@ div.turn-ind {
 .chat-frame {
   padding-right: 0px;
   padding-left: 15px;
-  height: 600px;
   color: inherit;
   background-color: #1a1a1a;
   -webkit-border-radius: 6px;
