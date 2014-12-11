@@ -8,19 +8,26 @@ class RoomsController < ApplicationController
       @rooms = Room.all
       @num  = Array.new(3,0)
       i = 0
-      Table.all.each do |item|
-        if item.id.to_i <= 10
-          i = 0
-        @num[i] += (item.get_usernames).size
-        elsif item.id.to_i > 10 || item.id.to_i <= 20
-          i = 1
-        @num[i] += (item.get_usernames).size
-        else
-          i = 2
-         @num[i] += (item.get_usernames).size
-        end
+      k = 0
+      basic = Room.find_by_name("Basic Room")
 
+      basic = Table.where(room_id: basic.id)
 
+      basic.each do |item|
+        @num[0]  += (item.get_usernames).size
+      end
+
+      medium = Room.find_by_name("Medium Room")
+      medium = Table.where(room_id: medium.id)
+
+      medium.each do |item|
+        @num[1]  += (item.get_usernames).size
+      end
+
+      high = Room.find_by_name("High Rollers Room")
+      high = Table.where(room_id: high.id)
+       medium.each do |item|
+        @num[2]  += (item.get_usernames).size
       end
 
       @games = current_games
