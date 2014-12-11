@@ -101,7 +101,7 @@ function show_message(message) {
       if (message.substring(0,10) == "The winner") {
             message_li.css("color", "yellow");
       } else {
-            message_li.css("collor", "red");
+            message_li.css("color", "red");
       }
       $("#chat-list").prepend(message_li);
       window.MESSAGE = message;
